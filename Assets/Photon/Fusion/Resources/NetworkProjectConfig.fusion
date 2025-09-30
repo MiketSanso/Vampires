@@ -25,7 +25,8 @@
             "ServerIndex": 0,
             "ClientSendIndex": 1,
             "ServerSendIndex": 1
-        }
+        },
+        "MaxObjectDestroysSentPerPacket": 32
     },
     "Network": {
         "ConnectionTimeout": 10.0,
