@@ -24,7 +24,7 @@ namespace _Project.Scripts.View
         {
             Observable.FromEvent(
                     h => new UnityEngine.Events.UnityAction(h),
-                    h => _buttonConnectAsHost.onClick.AddListener(h),
+                    h => _buttonConnectAsHost.onClick.AddListener(h), 
                     h => _buttonConnectAsHost.onClick.RemoveListener(h)
                 ).Subscribe(_ => _iConnectViewModel.ConnectAsHostCommand.Execute(Unit.Default))
                 .AddTo(_disposables);

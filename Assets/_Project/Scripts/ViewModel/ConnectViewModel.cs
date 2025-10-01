@@ -37,12 +37,12 @@ public class ConnectViewModel : IConnectViewModel, IInitializable, IDisposable
     private void HandleConnectAsHost()
     {
         _gameModeModel.GameMode = GameMode.Host;
-        _sceneChanger.ChangeScene(_sceneChanger.SceneNumbDat.Game);
+        _sceneChanger.ChangeScene(_sceneChanger.SceneNumbData.Game);
     }
     
     private void HandleConnectAsPlayer()
     {
         _gameModeModel.GameMode = GameMode.Client;
-        _sceneChanger.ChangeScene(_sceneChanger.SceneNumbDat.Game);
+        _sceneChanger.ChangeScene(_sceneChanger.SceneNumbData.Game);
     }
 }

@@ -6,7 +6,6 @@ namespace _Project.Scripts.Infrastructure
     {
         public override void InstallBindings()
         {
-            
         }
     }
 }

@@ -5,11 +5,11 @@ namespace _Project.Scripts.Services
 {
     public class SceneChanger
     {
-        public readonly SceneNumbData SceneNumbDat;
+        public readonly SceneNumbData SceneNumbData;
 
         public SceneChanger(SceneNumbData sceneNumbData)
         {
-            SceneNumbDat = sceneNumbData;
+            SceneNumbData = sceneNumbData;
         }
         
         public void ChangeScene(int numberScene)

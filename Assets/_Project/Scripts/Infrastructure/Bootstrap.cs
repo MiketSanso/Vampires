@@ -16,7 +16,7 @@ namespace _Project.Scripts.Infrastructure
         
         private void Start()
         {
-            _sceneChanger.ChangeScene(_sceneChanger.SceneNumbDat.Menu);
+            _sceneChanger.ChangeScene(_sceneChanger.SceneNumbData.Menu);
         }
     }
 }
