@@ -1151,7 +1151,7 @@
             <summary>Version of the Native Encryptor API compiled into this assembly. Defines which PhotonEncryptorPlugin needs to be used.</summary>
         </member>
         <member name="F:ExitGames.Client.Photon.PhotonPeer.TargetFramework">
-            <summary>Target framework this dll was built for.</summary>
+            <summary>Targets framework this dll was built for.</summary>
         </member>
         <member name="F:ExitGames.Client.Photon.PhotonPeer.NoNativeCallbacks">
             <summary>Global toggle to avoid callbacks from native plugins. Defaults to false, meaning: "callbacks enabled".</summary>

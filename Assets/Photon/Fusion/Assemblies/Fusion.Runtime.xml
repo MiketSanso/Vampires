@@ -1275,7 +1275,7 @@
         </member>
         <member name="T:Fusion.NATPunchStage">
             <summary>
-            Describes the current Target Address Type used in the NAT Punch procedure
+            Describes the current Targets Address Type used in the NAT Punch procedure
             </summary>
         </member>
         <member name="F:Fusion.NATPunchStage.None">
@@ -13904,7 +13904,7 @@
             Moves an object to the scene of this runner
             </summary>
             <param name="instance">Object to move</param>
-            <param name="targetSceneRef">Target scene to move the object to</param>
+            <param name="targetSceneRef">Targets scene to move the object to</param>
         </member>
         <member name="M:Fusion.NetworkRunner.MakeDontDestroyOnLoad(UnityEngine.GameObject)">
             <summary>
@@ -16898,7 +16898,7 @@
             Enqueue a <see cref="T:Fusion.SimulationMessage"/> on the Out Message List for a specific <see cref="T:Fusion.Sockets.NetConnection"/>
             </summary>
             <param name="message">Message to enqueue</param>
-            <param name="netConnection">Target Connection</param>
+            <param name="netConnection">Targets Connection</param>
         </member>
         <member name="M:Fusion.Simulation.Server.Disconnect(Fusion.Sockets.NetAddress)">
             <summary>
@@ -16916,7 +16916,7 @@
             Process the serialized data from the bytebuffer into a organized Dictionary of NetIDs=NO Snapshots
             </summary>
             <param name="data">Data buffer to read the data from</param>
-            <param name="networkObjectMap">Target dictionary that will be filled with NetworkObjects data</param>
+            <param name="networkObjectMap">Targets dictionary that will be filled with NetworkObjects data</param>
             <param name="allocator">Allocator used to create new <see cref="T:Fusion.NetworkObjectHeaderSnapshot"/></param>
         </member>
         <member name="T:Fusion.RpcSendMessageResult">
@@ -16946,17 +16946,17 @@
         </member>
         <member name="F:Fusion.RpcSendMessageResult.NotSentTargetObjectNotConfirmed">
             <summary>
-            Target object not confirmed on the client.
+            Targets object not confirmed on the client.
             </summary>
         </member>
         <member name="F:Fusion.RpcSendMessageResult.NotSentTargetObjectNotInPlayerInterest">
             <summary>
-            Target object not in client's interest. Likely due to being outside of player's AOI region, or needs to be explicitly set as always interested.
+            Targets object not in client's interest. Likely due to being outside of player's AOI region, or needs to be explicitly set as always interested.
             </summary>
         </member>
         <member name="F:Fusion.RpcSendMessageResult.NotSentTargetClientNotAvailable">
             <summary>
-            Target client not connected (a targeted message).
+            Targets client not connected (a targeted message).
             </summary>
         </member>
         <member name="F:Fusion.RpcSendMessageResult.NotSentBroadcastNoActiveConnections">
@@ -17585,9 +17585,9 @@
             Flags
             </summary>
         </member>
-        <member name="F:Fusion.SimulationMessage.Target">
+        <member name="F:Fusion.SimulationMessage.Targets">
             <summary>
-            Target Player of this <see cref="T:Fusion.SimulationMessage"/>
+            Targets Player of this <see cref="T:Fusion.SimulationMessage"/>
             </summary>
         </member>
         <member name="M:Fusion.SimulationMessage.ReferenceCountAdd">
@@ -17605,7 +17605,7 @@
             <summary>
             Set the player target of this <see cref="T:Fusion.SimulationMessage"/>
             </summary>
-            <param name="target">Target Player</param>
+            <param name="target">Targets Player</param>
         </member>
         <member name="M:Fusion.SimulationMessage.SetStatic">
             <summary>

@@ -1,13 +1,13 @@
+using System;
 using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
-using R3;
 
 namespace _Project.Scripts
 {
     public class EnemyPool
     {
-        public ReactiveCommand<Unit> CreateNewEnemyCommand;
+        public event Action OnNeedToCreateNewEmemy;
         
         private Queue<NetworkObject> _enemies = new Queue<NetworkObject>();
 
@@ -23,9 +23,7 @@ namespace _Project.Scripts
         public void ActivateEnemy(Vector3 position)
         {
             if (_enemies.Count == 0)
-            {
-                CreateNewEnemyCommand.Execute();
-            }
+                OnNeedToCreateNewEmemy?.Invoke();
             
             NetworkObject enemy = _enemies.Dequeue();
 

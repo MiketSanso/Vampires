@@ -565,7 +565,7 @@
             Sends a package data using the communication system
             </summary>
             <param name="code">Event Code used to send the Package</param>
-            <param name="targetActor">Target Actor of the Package</param>
+            <param name="targetActor">Targets Actor of the Package</param>
             <param name="reliable">Flag if this Package should be sent reliably</param>
             <param name="buffer">Data Buffer</param>
             <param name="bufferLength">Buffer Length</param>
@@ -604,7 +604,7 @@
             <summary>
             Send a Protocol Message using the communicator system
             </summary>
-            <param name="targetActor">Target Actor of the Protocol Message</param>
+            <param name="targetActor">Targets Actor of the Protocol Message</param>
             <param name="message">Protocol Message to be sent</param>
         </member>
         <member name="M:Fusion.Protocol.ICommunicator.Service">
