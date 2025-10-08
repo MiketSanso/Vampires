@@ -14,6 +14,7 @@ namespace _Project.Scripts.Infrastructure
         {
             Container.Bind<SceneChanger>().AsSingle().WithArguments(_sceneNumbData);
             Container.Bind<GameModeModel>().AsSingle();
+            Container.Bind<GameStateModel>().AsSingle();
         }
     }
 }

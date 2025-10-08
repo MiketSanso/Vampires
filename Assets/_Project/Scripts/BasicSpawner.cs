@@ -15,11 +15,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
     private GameModeModel _gameModeModel;
+    private TransformsModel _transformsModel;
     
     [Inject]
-    private void Construct(GameModeModel gameModeModel)
+    private void Construct(GameModeModel gameModeModel,
+        TransformsModel transformsModel)
     {
         _gameModeModel = gameModeModel;
+        _transformsModel = transformsModel;
     }
     
     private void Start()
@@ -57,6 +60,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
             
             _spawnedCharacters.Add(player, networkPlayerObject);
+            
+            _transformsModel.AddTarget(networkPlayerObject.gameObject.transform);
         }
     }
 
@@ -64,6 +69,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
+            _transformsModel.RemoveTarget(networkObject.gameObject.transform);
+
             runner.Despawn(networkObject);
             _spawnedCharacters.Remove(player);
         }
