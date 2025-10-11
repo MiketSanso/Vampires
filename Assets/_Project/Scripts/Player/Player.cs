@@ -3,9 +3,20 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
+    [Networked] public NetworkString<_16> Nickname { get; set; }
+
     [SerializeField] private NetworkCharacterController _characterController;
     [SerializeField] private Camera _gameCamera;
     [SerializeField] private AudioListener _audioListener;
+
+    public override void FixedUpdateNetwork()
+    {
+        if (GetInput(out NetworkInputData data))
+        {
+            data.direction.Normalize();
+            _characterController.Move(5 * data.direction * Runner.DeltaTime);
+        }
+    }
 
     public override void Spawned()
     {
@@ -22,14 +33,16 @@ public class Player : NetworkBehaviour
             _gameCamera.enabled = true;
             _audioListener.enabled = true;
         }
+        
+        if (Object.HasInputAuthority)
+        {
+            RPC_SetNickname("Ваш никнейм");
+        }
     }
     
-    public override void FixedUpdateNetwork()
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    public void RPC_SetNickname(string newName)
     {
-        if (GetInput(out NetworkInputData data))
-        {
-            data.direction.Normalize();
-            _characterController.Move(5 * data.direction * Runner.DeltaTime);
-        }
+        Nickname = newName;
     }
 }

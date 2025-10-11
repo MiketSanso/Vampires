@@ -4,22 +4,22 @@ using _Project.Scripts.Services;
 using _Project.Scripts.ViewModel;
 using Fusion;
 using R3;
-using UnityEngine;
 using Zenject;
 
 public class ConnectViewModel : IConnectViewModel, IInitializable, IDisposable
 {
-    private readonly GameModeModel _gameModeModel;
+    private readonly GameSettingsModel _gameSettingsModel;
     private readonly SceneChanger _sceneChanger;
     private readonly CompositeDisposable _disposables = new();
     
     public ReactiveCommand<Unit> ConnectAsHostCommand { get; } = new();
     public ReactiveCommand<Unit> ConnectAsPlayerCommand { get; } = new();
+    public ReactiveCommand<string> SetNameCommand { get; } = new();
     
-    public ConnectViewModel(GameModeModel gameModeModel,
+    public ConnectViewModel(GameSettingsModel gameSettingsModel,
         SceneChanger sceneChanger)
     {
-        _gameModeModel = gameModeModel;
+        _gameSettingsModel = gameSettingsModel;
         _sceneChanger = sceneChanger;
     }
 
@@ -27,22 +27,34 @@ public class ConnectViewModel : IConnectViewModel, IInitializable, IDisposable
     {
         ConnectAsHostCommand.Subscribe(_ => HandleConnectAsHost()).AddTo(_disposables);
         ConnectAsPlayerCommand.Subscribe(_ => HandleConnectAsPlayer()).AddTo(_disposables); 
+        SetNameCommand.Subscribe(name => HandleSetName(name)).AddTo(_disposables);
     }
     
     public void Dispose()
     {
         _disposables.Dispose();
     }
+
+    private void HandleSetName(string name)
+    {
+        _gameSettingsModel.Nickname = name;
+    }
     
     private void HandleConnectAsHost()
     {
-        _gameModeModel.GameMode = GameMode.Host;
-        _sceneChanger.ChangeScene(_sceneChanger.SceneNumbData.Game);
+        if (_gameSettingsModel.Nickname != null)
+        {
+            _gameSettingsModel.GameMode = GameMode.Host;
+            _sceneChanger.ChangeScene(_sceneChanger.SceneNumbData.Game);
+        }
     }
     
     private void HandleConnectAsPlayer()
     {
-        _gameModeModel.GameMode = GameMode.Client;
-        _sceneChanger.ChangeScene(_sceneChanger.SceneNumbData.Game);
+        if (_gameSettingsModel.Nickname != null)
+        {
+            _gameSettingsModel.GameMode = GameMode.Client;
+            _sceneChanger.ChangeScene(_sceneChanger.SceneNumbData.Game);
+        }
     }
 }

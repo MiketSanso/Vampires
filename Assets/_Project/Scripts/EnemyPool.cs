@@ -7,7 +7,7 @@ namespace _Project.Scripts
 {
     public class EnemyPool
     {
-        public ReactiveCommand<Unit> CreateNewEnemyCommand;
+        //public ;
         
         private Queue<NetworkObject> _enemies = new Queue<NetworkObject>();
 
@@ -24,7 +24,7 @@ namespace _Project.Scripts
         {
             if (_enemies.Count == 0)
             {
-                CreateNewEnemyCommand.Execute();
+                //CreateNewEnemyCommand.Execute();
             }
             
             NetworkObject enemy = _enemies.Dequeue();

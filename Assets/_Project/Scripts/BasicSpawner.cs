@@ -14,17 +14,17 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
-    private GameModeModel _gameModeModel;
+    private GameSettingsModel _gameSettingsModel;
     
     [Inject]
-    private void Construct(GameModeModel gameModeModel)
+    private void Construct(GameSettingsModel gameSettingsModel)
     {
-        _gameModeModel = gameModeModel;
+        _gameSettingsModel = gameSettingsModel;
     }
     
     private void Start()
     {
-        StartGame(_gameModeModel.GameMode);
+        StartGame(_gameSettingsModel.GameMode);
     }
 
     private async void StartGame(GameMode mode)

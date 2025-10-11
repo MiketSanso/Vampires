@@ -6,5 +6,7 @@ namespace _Project.Scripts.ViewModel
     {
         public ReactiveCommand<Unit> ConnectAsHostCommand { get; }
         public ReactiveCommand<Unit> ConnectAsPlayerCommand { get; }
+        public ReactiveCommand<string> SetNameCommand { get; }
+
     }
 }

@@ -2,8 +2,9 @@ using Fusion;
 
 namespace _Project.Scripts.Model
 {
-    public class GameModeModel
+    public class GameSettingsModel
     {
         public GameMode GameMode = GameMode.Client;
+        public string Nickname;
     }
 }
