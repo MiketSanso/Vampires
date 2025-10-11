@@ -2442,7 +2442,7 @@
             The source send identifier.
             </summary>
         </member>
-        <member name="F:Fusion.Sockets.ReliableId.Target">
+        <member name="F:Fusion.Sockets.ReliableId.Targets">
             <summary>
             The target identifier.
             </summary>
@@ -3910,9 +3910,9 @@
             <summary>
             Check if this Message is compatible with target versions
             </summary>
-            <param name="pluginProtocolVersion">Target Protocol Message Version</param>
+            <param name="pluginProtocolVersion">Targets Protocol Message Version</param>
             <param name="pluginVersion">Plugin Version</param>
-            <param name="sessionSerializationVersion">Target Fusion Serialization Version</param>
+            <param name="sessionSerializationVersion">Targets Fusion Serialization Version</param>
             <returns>True if message is compatible with versions</returns>
         </member>
         <member name="T:Fusion.Protocol.Disconnect">

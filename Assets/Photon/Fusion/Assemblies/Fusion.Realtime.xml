@@ -70,7 +70,7 @@
             <summary>
             Send data to another Actor on the Room
             </summary>
-            <param name="target">Target Actor of the Event</param>
+            <param name="target">Targets Actor of the Event</param>
             <param name="eventCode">Event Code</param>
             <param name="buffer">Data to be sent</param>
             <param name="bufferLength">Buffer Length</param>
