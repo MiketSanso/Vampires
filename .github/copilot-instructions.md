@@ -1,14 +1,13 @@
 <!-- UNITY CODE ASSIST INSTRUCTIONS START -->
-- Project name: Vamprites
-- Unity version: Unity 6000.2.0b9
+- Project name: Vampires
+- Unity version: Unity 6000.2.6f2
 - Active scene:
-  - Name: Game
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
-  - Name: Chat
+  - Name: PlayerPrefab
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

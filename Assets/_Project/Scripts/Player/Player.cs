@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
-    [Networked] public NetworkString<_16> Nickname { get; set; }
+    [HideInInspector, Networked] public NetworkString<_16> Nickname { get; set; }
 
     [SerializeField] private NetworkCharacterController _characterController;
     [SerializeField] private Camera _gameCamera;

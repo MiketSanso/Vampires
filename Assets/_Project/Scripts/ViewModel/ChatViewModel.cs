@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using _Project.Scripts.Model;
-using Fusion;
 using R3;
 using Zenject;
 
@@ -14,7 +12,7 @@ namespace _Project.Scripts.ViewModel
         private readonly MessagesModel _messagesModel;
         
         public ReactiveCommand<string> AddMessageCommand { get; } = new();
-        public Observable<Queue<string>> Messages { get; private set; }
+        public Observable<string[]> Messages { get; private set; }
         
         public ChatViewModel(MessagesModel messagesModel,
             GameSettingsModel gameSettings)
@@ -25,7 +23,8 @@ namespace _Project.Scripts.ViewModel
         
         public void Initialize()
         {
-            Messages = _messagesModel.Messages;
+            Messages = _messagesModel.Messages.Select(queue => queue.ToArray())
+                .AsObservable();
             AddMessageCommand.Subscribe(message => AddMessage(message)).AddTo(_disposables);
         }
         
@@ -36,14 +35,10 @@ namespace _Project.Scripts.ViewModel
         
         private void AddMessage(string message)
         {
-            RPC_SendMessage(message);
-        }
-        
-        private  void RPC_SendMessage(string message, RpcInfo info = default)
-        {
             message = $"{message} :{_gameSettings.Nickname}\n\n";
 
-            _messagesModel.AddMessage(message);
+            _messagesModel.AddMessage(message);        
         }
+
     }
 }

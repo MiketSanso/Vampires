@@ -2,7 +2,6 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
-using _Project.Scripts;
 using _Project.Scripts.Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,11 +14,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
     private GameSettingsModel _gameSettingsModel;
+    private DiContainer _diContainer;
     
     [Inject]
-    private void Construct(GameSettingsModel gameSettingsModel)
+    private void Construct(GameSettingsModel gameSettingsModel,
+        DiContainer diContainer)
     {
         _gameSettingsModel = gameSettingsModel;
+        _diContainer = diContainer;
     }
     
     private void Start()
@@ -55,11 +57,18 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         {
             Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
-            
+            networkPlayerObject.AssignInputAuthority(player);
             _spawnedCharacters.Add(player, networkPlayerObject);
+        
+            InjectDependencies(networkPlayerObject);
         }
     }
-
+    
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    {
+        InjectDependencies(obj);
+    }
+        
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
@@ -101,7 +110,15 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnSceneLoadDone(NetworkRunner runner) { }
     public void OnSceneLoadStart(NetworkRunner runner) { }
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){ }
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){ }
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data){ }
     public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress){ }
+    
+    private void InjectDependencies(NetworkObject playerObject)
+    {
+        var injectables = playerObject.GetComponentsInChildren<MonoBehaviour>(true);
+        foreach (var injectable in injectables)
+        {
+            _diContainer.Inject(injectable);
+        }
+    }
 }

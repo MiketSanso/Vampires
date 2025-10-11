@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using _Project.Scripts.ViewModel;
 using Fusion;
 using R3;
@@ -27,6 +26,15 @@ namespace _Project.Scripts.View
 
         private void Start()
         {
+            if (_iChatViewModel == null)
+            {
+                var diContainer = FindObjectOfType<SceneContext>()?.Container;
+                if (diContainer != null)
+                {
+                    _iChatViewModel = diContainer.Resolve<IChatViewModel>();
+                }
+            }
+            
             Observable.FromEvent(
                     h => new UnityEngine.Events.UnityAction(h),
                     h => _button.onClick.AddListener(h), 
@@ -34,11 +42,16 @@ namespace _Project.Scripts.View
                 ).Subscribe(_ => _iChatViewModel.AddMessageCommand.Execute(_inputField.text))
                 .AddTo(_disposables);
 
+            Debug.Log(_iChatViewModel);
             _iChatViewModel.Messages.Subscribe(messages => UpdateUI(messages));
         }
+        
+        private void OnDestroy()
+        {
+            _disposables.Dispose();
+        }
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
-        private void UpdateUI(Queue<string> messages)
+        private void UpdateUI(string[] messages)
         {
             string newText = string.Empty;
 
@@ -48,11 +61,6 @@ namespace _Project.Scripts.View
             }
 
             _text.text = newText;
-        }
-
-        private void OnDestroy()
-        {
-            _disposables.Dispose();
         }
     }
 }

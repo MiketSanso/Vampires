@@ -14,7 +14,26 @@ namespace _Project.Scripts.Model
             _messages = new ReactiveProperty<Queue<string>>(new Queue<string>());
         }
 
-        public void DeleteLastMessage()
+        public void AddMessage(string message)
+        {
+            var newQueue = new Queue<string>(_messages.Value);
+            newQueue.Enqueue(message);
+            _messages.Value = newQueue;
+        }
+        
+        public void UpdateAllMessages(string[] messages)
+        {
+            var newQueue = new Queue<string>(_messages.Value);
+            
+            foreach (string message in messages)
+                newQueue.Enqueue(message);
+            
+            _messages.Value = newQueue;
+
+            DeleteLastMessage();
+        }
+        
+        private void DeleteLastMessage()
         {
             if (_messages.Value.Count > 10)
             {
@@ -22,18 +41,6 @@ namespace _Project.Scripts.Model
                 newQueue.Dequeue();
                 _messages.Value = newQueue;
             }
-        }
-
-        public void AddMessage(string message)
-        {
-            var newQueue = new Queue<string>(_messages.Value);
-            newQueue.Enqueue(message);
-            _messages.Value = newQueue;
-        }
-
-        public void ClearMessages()
-        {
-            _messages.Value = new Queue<string>();
         }
     }
 }
