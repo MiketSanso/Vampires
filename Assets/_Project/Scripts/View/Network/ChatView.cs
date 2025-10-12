@@ -1,4 +1,5 @@
 using _Project.Scripts.ViewModel;
+using Cysharp.Threading.Tasks;
 using Fusion;
 using R3;
 using TMPro;
@@ -12,7 +13,9 @@ namespace _Project.Scripts.View
     {
         [SerializeField] private Button _button;
         [SerializeField] private TMP_InputField _inputField;
+        [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private TMP_Text _text;
+        [SerializeField] private Image _microContent;
         
         private IChatViewModel _iChatViewModel;
         
@@ -42,8 +45,10 @@ namespace _Project.Scripts.View
                 ).Subscribe(_ => _iChatViewModel.AddMessageCommand.Execute(_inputField.text))
                 .AddTo(_disposables);
 
-            Debug.Log(_iChatViewModel);
-            _iChatViewModel.Messages.Subscribe(messages => UpdateUI(messages));
+            _iChatViewModel.Messages.Subscribe(messages => 
+            {
+                UpdateUI(messages);
+            }).AddTo(_disposables);
         }
         
         private void OnDestroy()
@@ -61,6 +66,27 @@ namespace _Project.Scripts.View
             }
 
             _text.text = newText;
+
+            UpdateLayout().Forget();
+        }
+        
+        private async UniTask UpdateLayout()
+        {
+            float textHeight = _text.preferredHeight;
+            float containerHeight = _microContent.rectTransform.rect.height;
+
+            if (textHeight > containerHeight)
+            {
+                Vector2 size = _microContent.rectTransform.sizeDelta;
+                size.y = textHeight;
+                _microContent.rectTransform.sizeDelta = size;
+
+               // await UniTask.DelayFrame(1);
+
+               // LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
+                
+                _scrollRect.verticalNormalizedPosition = 0f;
+            }
         }
     }
 }

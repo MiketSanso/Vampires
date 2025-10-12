@@ -1,6 +1,7 @@
 using _Project.Scripts.Model;
 using Fusion;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.Enemy
 {
@@ -11,11 +12,14 @@ namespace _Project.Scripts.Enemy
         private TransformsModel _transformModel;
         private GameStateModel _gameStateModel;
 
-        public void Initialize(TransformsModel transformsModel,
-            GameStateModel gameStateModel)
+        private void Start()
         {
-            _transformModel = transformsModel;
-            _gameStateModel = gameStateModel;
+            var diContainer = FindObjectOfType<SceneContext>()?.Container;
+            if (diContainer != null)
+            {
+                _transformModel = diContainer.Resolve<TransformsModel>();
+                _gameStateModel = diContainer.Resolve<GameStateModel>();
+            }
         }
 
         public override void FixedUpdateNetwork()
