@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
-    [Networked] public NetworkString<_16> Nickname { get; set; }
+    [HideInInspector, Networked] public NetworkString<_16> Nickname { get; set; }
 
+    [SerializeField] private float _speed;
     [SerializeField] private NetworkCharacterController _characterController;
     [SerializeField] private Camera _gameCamera;
     [SerializeField] private AudioListener _audioListener;
@@ -14,7 +15,7 @@ public class Player : NetworkBehaviour
         if (GetInput(out NetworkInputData data))
         {
             data.direction.Normalize();
-            _characterController.Move(5 * data.direction * Runner.DeltaTime);
+            _characterController.Move(_speed * data.direction * Runner.DeltaTime);
         }
     }
 
@@ -36,12 +37,12 @@ public class Player : NetworkBehaviour
         
         if (Object.HasInputAuthority)
         {
-            RPC_SetNickname("Ваш никнейм");
+            RPC_SetNickname("Ваш никнейм"); //TODO: Тута какаято-то хуйня
         }
     }
     
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    public void RPC_SetNickname(string newName)
+    private void RPC_SetNickname(string newName)
     {
         Nickname = newName;
     }

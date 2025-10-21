@@ -2,7 +2,6 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
-using _Project.Scripts;
 using _Project.Scripts.Model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,11 +14,17 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
     private GameSettingsModel _gameSettingsModel;
+    private TransformsModel _transformsModel;
+    private DiContainer _diContainer;
     
     [Inject]
-    private void Construct(GameSettingsModel gameSettingsModel)
+    private void Construct(GameSettingsModel gameSettingsModel,
+        DiContainer diContainer,
+        TransformsModel transformsModel)
     {
         _gameSettingsModel = gameSettingsModel;
+        _diContainer = diContainer;
+        _transformsModel = transformsModel;
     }
     
     private void Start()
@@ -32,7 +37,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
 
-        // Create the NetworkSceneInfo from the current scene
         var scene = SceneRef.FromIndex(1);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
@@ -53,17 +57,26 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
+            Vector3 spawnPosition = new Vector3(0, 3, 0);
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
-            
+            networkPlayerObject.AssignInputAuthority(player);
             _spawnedCharacters.Add(player, networkPlayerObject);
+            _transformsModel.AddTarget(networkPlayerObject.transform); //TODO: А сработает ли так, ведь как бы таргеты будут только у хоста -_-
+        
+            InjectDependencies(networkPlayerObject);
         }
     }
-
+    
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    {
+        InjectDependencies(obj);
+    }
+        
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
+            _transformsModel.RemoveTarget(networkObject.transform);
             runner.Despawn(networkObject);
             _spawnedCharacters.Remove(player);
         }
@@ -101,7 +114,15 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnSceneLoadDone(NetworkRunner runner) { }
     public void OnSceneLoadStart(NetworkRunner runner) { }
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){ }
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){ }
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data){ }
     public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress){ }
+    
+    private void InjectDependencies(NetworkObject playerObject)
+    {
+        var injectables = playerObject.GetComponentsInChildren<MonoBehaviour>(true);
+        foreach (var injectable in injectables)
+        {
+            _diContainer.Inject(injectable);
+        }
+    }
 }
