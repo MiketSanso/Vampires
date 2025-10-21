@@ -34,11 +34,11 @@ namespace _Project.Scripts.View
                 ).Subscribe(_ => _iChatViewModel.AddMessageCommand.Execute(_inputField.text))
                 .AddTo(_disposables);
 
-            _iChatViewModel.Messages.Subscribe(messages => UpdateUI(messages));
+            _iChatViewModel.Messages.Subscribe(messages => Rpc_UpdateUI(messages));
         }
 
         [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
-        private void UpdateUI(Queue<string> messages)
+        private void Rpc_UpdateUI(Queue<string> messages)
         {
             string newText = string.Empty;
 
