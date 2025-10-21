@@ -31,19 +31,7 @@ public class Player : NetworkBehaviour
             }
 
             _gameCamera.tag = "MainCamera";
-            _gameCamera.enabled = true;
-            _audioListener.enabled = true;
+            _gameCamera.gameObject.SetActive(true);
         }
-        
-        if (Object.HasInputAuthority)
-        {
-            RPC_SetNickname("Ваш никнейм"); //TODO: Тута какаято-то хуйня
-        }
-    }
-    
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_SetNickname(string newName)
-    {
-        Nickname = newName;
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
-using R3;
 
 namespace _Project.Scripts
 {
