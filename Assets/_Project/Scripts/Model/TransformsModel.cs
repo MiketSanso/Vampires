@@ -1,12 +1,18 @@
 using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
 namespace _Project.Scripts.Model
 {
     public class TransformsModel
     {
-        public List<Transform> Targets { get; private set; } = new List<Transform>();
+        public List<Transform> Targets = new List<Transform>();
 
+        public void AddNewTargetList(List<Transform> targets)
+        {
+            Targets = targets;
+        }
+        
         public void AddTarget(Transform target)
         {
             if (target != null)

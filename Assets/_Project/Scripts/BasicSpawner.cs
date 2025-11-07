@@ -7,9 +7,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
+public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkPrefabRef _playerPrefab;
+    [SerializeField] private NetworkPrefabRef _messagePrefab;
     
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
@@ -20,11 +21,11 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [Inject]
     private void Construct(GameSettingsModel gameSettingsModel,
         DiContainer diContainer,
-        TransformsModel transformsModel)
+        TransformsModel playersModel)
     {
         _gameSettingsModel = gameSettingsModel;
         _diContainer = diContainer;
-        _transformsModel = transformsModel;
+        _transformsModel = playersModel;
     }
     
     private void Start()
@@ -59,12 +60,24 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         {
             Vector3 spawnPosition = new Vector3(0, 3, 0);
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+            if (_spawnedCharacters.Count == 0) 
+            {
+                runner.Spawn(_messagePrefab, Vector3.zero, Quaternion.identity);
+            }            
             networkPlayerObject.AssignInputAuthority(player);
+            _transformsModel.AddTarget(networkPlayerObject.transform); 
+
             _spawnedCharacters.Add(player, networkPlayerObject);
-            _transformsModel.AddTarget(networkPlayerObject.transform); //TODO: А сработает ли так, ведь как бы таргеты будут только у хоста -_-
+            SetNewListTransforms(_transformsModel.Targets);
         
             InjectDependencies(networkPlayerObject);
         }
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void SetNewListTransforms(List<Transform> transforms)
+    {
+        _transformsModel.AddNewTargetList(transforms); 
     }
     
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
@@ -76,10 +89,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
-            _transformsModel.RemoveTarget(networkObject.transform);
             runner.Despawn(networkObject);
             _spawnedCharacters.Remove(player);
         }
+        
+        if (runner.IsServer)
+            SetNewListTransforms(_transformsModel.Targets);
     }
     
     public void OnInput(NetworkRunner runner, NetworkInput input)

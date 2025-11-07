@@ -1,6 +1,5 @@
 using _Project.Scripts.ViewModel;
 using Cysharp.Threading.Tasks;
-using Fusion;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 
 namespace _Project.Scripts.View
 {
-    public class ChatView : NetworkBehaviour
+    public class ChatView : MonoBehaviour
     {
         [SerializeField] private Button _button;
         [SerializeField] private TMP_InputField _inputField;

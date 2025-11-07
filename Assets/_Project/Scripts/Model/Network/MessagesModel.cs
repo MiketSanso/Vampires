@@ -18,8 +18,10 @@ namespace _Project.Scripts
         
         private readonly CompositeDisposable _disposables = new();
         
-        private void Start()
+        public override void Spawned()
         {
+            base.Spawned();
+            
             ChatViewModel chatViewModel;
 
             var diContainer = FindObjectOfType<SceneContext>()?.Container;
@@ -32,6 +34,7 @@ namespace _Project.Scripts
             }
             
             chatViewModel.InitializeNetworkChatHandler(this);
+            UpdateLocalMessages();
         }
         
         private void OnDestroy()
@@ -39,7 +42,7 @@ namespace _Project.Scripts
             _disposables.Dispose();
         }
     
-        [Rpc(RpcSources.All, RpcTargets.All)]
+        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         public void RPC_AddMessage(string message)
         {
             List<string> newArray = new List<string>();
@@ -62,8 +65,14 @@ namespace _Project.Scripts
             {
                 _networkMessages.Set(i, newArray[i]);
             }
-
-            UpdateLocalMessages();
+            
+            RPC_UpdateAllClients();
+        }
+        
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_UpdateAllClients()
+        {
+            UpdateLocalMessages(); 
         }
         
         private void UpdateLocalMessages()

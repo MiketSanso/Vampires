@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _Project.Scripts.Model;
 using Fusion;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace _Project.Scripts.Enemy
     {
         [SerializeField] private float _speed;
         
-        private TransformsModel _transformModel;
+        private TransformsModel _playerModel;
         private GameStateModel _gameStateModel;
 
         private void Start()
@@ -17,7 +18,7 @@ namespace _Project.Scripts.Enemy
             var diContainer = FindObjectOfType<SceneContext>()?.Container;
             if (diContainer != null)
             {
-                _transformModel = diContainer.Resolve<TransformsModel>();
+                _playerModel = diContainer.Resolve<TransformsModel>();
                 _gameStateModel = diContainer.Resolve<GameStateModel>();
             }
         }
@@ -26,9 +27,9 @@ namespace _Project.Scripts.Enemy
         {
             if (_gameStateModel.IsGameActive)
             {
-                Transform closestTransform = _transformModel.Targets[0];
+                Transform closestTransform = _playerModel.Targets[0];
                 
-                foreach (Transform playerTransform in _transformModel.Targets)
+                foreach (Transform playerTransform in _playerModel.Targets)
                 {
                     if (Vector3.Distance(transform.position, closestTransform.position) >
                         Vector3.Distance(transform.position, playerTransform.position))
