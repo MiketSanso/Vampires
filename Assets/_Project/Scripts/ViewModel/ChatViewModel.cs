@@ -39,7 +39,7 @@ namespace _Project.Scripts.ViewModel
         
         private void AddMessage(string message)
         {
-            message = $"{message} :{_gameSettings.Nickname}\n\n";
+            message = $"{_gameSettings.Nickname}: {message}\n\n";
 
             _messagesModel.RPC_AddMessage(message);        
         }

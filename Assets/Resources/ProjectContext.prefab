@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneNumbData: {fileID: 11400000, guid: 4b8974bc291462646a0e0fbc610ea070, type: 2}
+  _prefabsData: {fileID: 11400000, guid: be90a95341d11e649b425e82d9123f6b, type: 2}
 --- !u!1 &6647920141816115134
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +72,7 @@ Transform:
   m_GameObject: {fileID: 6647920141816115134}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1386.6721, y: 740.76807, z: -203.62067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

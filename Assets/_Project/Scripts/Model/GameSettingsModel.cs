@@ -6,5 +6,6 @@ namespace _Project.Scripts.Model
     {
         public GameMode GameMode = GameMode.Client;
         public string Nickname;
+        public string SessionName;
     }
 }

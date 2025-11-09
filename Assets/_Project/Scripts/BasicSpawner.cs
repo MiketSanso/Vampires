@@ -3,37 +3,38 @@ using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
 using _Project.Scripts.Model;
+using _Project.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
 public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
 {
-    [SerializeField] private NetworkPrefabRef _playerPrefab;
-    [SerializeField] private NetworkPrefabRef _messagePrefab;
-    
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
     private GameSettingsModel _gameSettingsModel;
     private TransformsModel _transformsModel;
     private DiContainer _diContainer;
+    private PrefabsData _prefabsData;
     
     [Inject]
     private void Construct(GameSettingsModel gameSettingsModel,
         DiContainer diContainer,
-        TransformsModel playersModel)
+        TransformsModel playersModel,
+        PrefabsData prefabsData)
     {
         _gameSettingsModel = gameSettingsModel;
         _diContainer = diContainer;
         _transformsModel = playersModel;
+        _prefabsData = prefabsData;
     }
     
     private void Start()
     {
-        StartGame(_gameSettingsModel.GameMode);
+        StartGame();
     }
 
-    private async void StartGame(GameMode mode)
+    private async void StartGame()
     {
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
@@ -44,11 +45,10 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
         }
 
-        // Start or join (depends on gamemode) a session with a specific name
         await _runner.StartGame(new StartGameArgs()
         {
-            GameMode = mode,
-            SessionName = "TestRoom",
+            GameMode = _gameSettingsModel.GameMode,
+            SessionName = _gameSettingsModel.SessionName,
             Scene = scene,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
@@ -59,10 +59,10 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             Vector3 spawnPosition = new Vector3(0, 3, 0);
-            NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+            NetworkObject networkPlayerObject = runner.Spawn(_prefabsData.PlayerPrefab, spawnPosition, Quaternion.identity, player);
             if (_spawnedCharacters.Count == 0) 
             {
-                runner.Spawn(_messagePrefab, Vector3.zero, Quaternion.identity);
+                runner.Spawn(_prefabsData.MessagePrefab, Vector3.zero, Quaternion.identity);
             }            
             networkPlayerObject.AssignInputAuthority(player);
             _transformsModel.AddTarget(networkPlayerObject.transform); 

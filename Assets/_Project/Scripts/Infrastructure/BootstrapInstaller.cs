@@ -9,11 +9,13 @@ namespace _Project.Scripts.Infrastructure
     public class BootstrapInstaller : MonoInstaller
     {
         [SerializeField] private SceneNumbData _sceneNumbData;
+        [SerializeField] private PrefabsData _prefabsData;
         
         public override void InstallBindings()
         {
             Container.Bind<SceneChanger>().AsSingle().WithArguments(_sceneNumbData);
             Container.Bind<GameSettingsModel>().AsSingle();
+            Container.Bind<PrefabsData>().FromInstance(_prefabsData).AsSingle();
         }
     }
 }

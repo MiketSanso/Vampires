@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e4b95ac86e4c26ba0525306444b2d5, type: 3}
+  m_Name: PrefabsData
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.ScriptableObjects.PrefabsData
+  <PlayerPrefab>k__BackingField:
+    RawGuidValue: 76b22d58f39c78b4cacec3032152e6b7
+  <MessagePrefab>k__BackingField:
+    RawGuidValue: 88fdb4928b10d17409944da05407e5ae
+  <BasicSpawner>k__BackingField: {fileID: 8336085418334597501, guid: fe98b99f0b7ef2c4b9c5e9699c5fe72a, type: 3}
