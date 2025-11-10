@@ -71,21 +71,35 @@ namespace _Project.Scripts.View
         
         private async UniTask UpdateLayout()
         {
-            float textHeight = _text.preferredHeight;
+            Canvas.ForceUpdateCanvases();
+            await UniTask.DelayFrame(1);
+    
+            float textHeight = GetTextHeight();
             float containerHeight = _microContent.rectTransform.rect.height;
-
+    
             if (textHeight > containerHeight)
             {
                 Vector2 size = _microContent.rectTransform.sizeDelta;
                 size.y = textHeight;
                 _microContent.rectTransform.sizeDelta = size;
 
-               // await UniTask.DelayFrame(1);
+                Canvas.ForceUpdateCanvases();
+                await UniTask.DelayFrame(1);
 
-               // LayoutRebuilder.ForceRebuildLayoutImmediate(_scrollRect.content);
-                
                 _scrollRect.verticalNormalizedPosition = 0f;
             }
+        }
+
+        private float GetTextHeight()
+        {
+            if (_text is TextMeshProUGUI tmp)
+            {
+                tmp.ForceMeshUpdate();
+                return tmp.preferredHeight + 30f;
+            }
+
+            Debug.LogError("You use don't right text!");
+            return 0;
         }
     }
 }

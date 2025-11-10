@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using _Project.Scripts.Model;
 using Fusion;
 using UnityEngine;
@@ -9,42 +8,37 @@ namespace _Project.Scripts.Enemy
     public class Enemy : NetworkBehaviour
     {
         [SerializeField] private float _speed;
+        [SerializeField] private NetworkCharacterController _characterController;
         
-        private TransformsModel _playerModel;
         private GameStateModel _gameStateModel;
 
-        private void Start()
+        [Inject]
+        private void Construct(GameStateModel gameStateModel)
         {
-            var diContainer = FindObjectOfType<SceneContext>()?.Container;
-            if (diContainer != null)
-            {
-                _playerModel = diContainer.Resolve<TransformsModel>();
-                _gameStateModel = diContainer.Resolve<GameStateModel>();
-            }
+            _gameStateModel = gameStateModel;
         }
 
         public override void FixedUpdateNetwork()
         {
             if (_gameStateModel.IsGameActive)
             {
-                Transform closestTransform = _playerModel.Targets[0];
+                Transform closestTransform = _gameStateModel.SpawnedCharacters[0].transform;
                 
-                foreach (Transform playerTransform in _playerModel.Targets)
+                foreach (Player player in _gameStateModel.SpawnedCharacters)
                 {
-                    if (Vector3.Distance(transform.position, closestTransform.position) >
-                        Vector3.Distance(transform.position, playerTransform.position))
-                        closestTransform = playerTransform;
+                    if (Vector3.Distance( _characterController.transform.position, closestTransform.position) >
+                        Vector3.Distance( _characterController.transform.position, player.transform.position))
+                        closestTransform = player.transform; 
                 }
                 
                 Vector3 targetPosition = closestTransform.position;
                 
-                transform.position = Vector3.MoveTowards(
-                    transform.position, 
-                    targetPosition, 
-                    _speed * Runner.DeltaTime
-                );
+                Vector3 moveDirection = (targetPosition - _characterController.transform.position).normalized;
+                moveDirection.y = 0;
+                _characterController.Move(moveDirection * Runner.DeltaTime);
                 
-                transform.LookAt(targetPosition);
+                Vector3 lookAtPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+                transform.LookAt(lookAtPosition);
             }
         }
     }

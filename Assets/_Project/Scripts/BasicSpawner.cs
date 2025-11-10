@@ -2,6 +2,7 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
+using _Project.Scripts;
 using _Project.Scripts.Model;
 using _Project.Scripts.ScriptableObjects;
 using UnityEngine;
@@ -10,12 +11,12 @@ using Zenject;
 
 public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
 {
-    private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private NetworkRunner _runner;
     private GameSettingsModel _gameSettingsModel;
     private TransformsModel _transformsModel;
     private DiContainer _diContainer;
     private PrefabsData _prefabsData;
+    private GameStateModel _gameStateModel;
     
     [Inject]
     private void Construct(GameSettingsModel gameSettingsModel,
@@ -29,16 +30,29 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         _prefabsData = prefabsData;
     }
     
-    private void Start()
+    public async void OnConnectedToServer(NetworkRunner runner)
     {
-        StartGame();
-    }
+        NetworkObject networkStateModel  = runner.Spawn(_prefabsData.GameStateModel, Vector3.zero, Quaternion.identity);
+        NetworkObject networkMessageModel = runner.Spawn(_prefabsData.MessageModel, Vector3.zero, Quaternion.identity);
 
-    private async void StartGame()
-    {
+        if (networkStateModel.TryGetComponent(out GameStateModel stateModel) &&
+            networkMessageModel.TryGetComponent(out MessagesModel messagesModel))
+        {
+            _diContainer.Inject(messagesModel);
+            _gameStateModel = stateModel;
+            
+            _diContainer.Bind<GameStateModel>()
+                .FromInstance(_gameStateModel)
+                .AsSingle();
+        }
+        else 
+            Debug.Log("Spawned incorrect object!");
+        
+        _gameStateModel.StartGame();
+        
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
-
+        
         var scene = SceneRef.FromIndex(1);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
@@ -54,30 +68,26 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         });
     }
 
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    public void OnPlayerJoined(NetworkRunner runner, PlayerRef playerRef)
     {
         if (runner.IsServer)
         {
-            Vector3 spawnPosition = new Vector3(0, 3, 0);
-            NetworkObject networkPlayerObject = runner.Spawn(_prefabsData.PlayerPrefab, spawnPosition, Quaternion.identity, player);
-            if (_spawnedCharacters.Count == 0) 
-            {
-                runner.Spawn(_prefabsData.MessagePrefab, Vector3.zero, Quaternion.identity);
-            }            
-            networkPlayerObject.AssignInputAuthority(player);
-            _transformsModel.AddTarget(networkPlayerObject.transform); 
-
-            _spawnedCharacters.Add(player, networkPlayerObject);
-            SetNewListTransforms(_transformsModel.Targets);
+            Vector3 spawnPosition = new Vector3(0, 4, 0);
+            
+            NetworkObject player = runner.Spawn(_prefabsData.Player, spawnPosition, Quaternion.identity, playerRef);
+            NetworkObject enemy = runner.Spawn(_prefabsData.Enemy, spawnPosition + new Vector3(1, 0, 3), Quaternion.identity);
+            
+            player.AssignInputAuthority(playerRef);
+            _transformsModel.AddTarget(player.transform); 
+            
+            if (player.TryGetComponent(out Player playerClass))
+                _gameStateModel.SpawnedCharacters.Add(playerRef, playerClass);
+            else 
+                Debug.Log("Spawned incorrect object!");
         
-            InjectDependencies(networkPlayerObject);
+            InjectDependencies(player);
+            InjectDependencies(enemy);
         }
-    }
-
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void SetNewListTransforms(List<Transform> transforms)
-    {
-        _transformsModel.AddNewTargetList(transforms); 
     }
     
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
@@ -87,14 +97,15 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
+        if (_gameStateModel.SpawnedCharacters.TryGet(player, out Player playerObject))
         {
-            runner.Despawn(networkObject);
-            _spawnedCharacters.Remove(player);
+            if (playerObject != null && playerObject.Object != null)
+            {
+                runner.Despawn(playerObject.Object);
+            }
+
+            _gameStateModel.SpawnedCharacters.Remove(player);
         }
-        
-        if (runner.IsServer)
-            SetNewListTransforms(_transformsModel.Targets);
     }
     
     public void OnInput(NetworkRunner runner, NetworkInput input)
@@ -118,7 +129,6 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
     
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
-    public void OnConnectedToServer(NetworkRunner runner) { }
     public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }

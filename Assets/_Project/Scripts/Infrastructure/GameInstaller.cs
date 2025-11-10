@@ -9,7 +9,6 @@ namespace _Project.Scripts.Infrastructure
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<ChatViewModel>().AsSingle();
-            Container.Bind<GameStateModel>().AsSingle();
             Container.Bind<TransformsModel>().AsSingle();
         }
     }

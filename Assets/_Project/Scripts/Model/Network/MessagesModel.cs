@@ -10,36 +10,26 @@ namespace _Project.Scripts
 {
     public class MessagesModel : NetworkBehaviour
     {
-        [HideInInspector, Networked, Capacity(10)]
+        [Networked, Capacity(20)]
         private NetworkArray<NetworkString<_64>> _networkMessages { get; } = default;
+        
+        private ChatViewModel _chatViewModel;
 
-        private readonly ReactiveProperty<string[]> _messages = new();
         public ReadOnlyReactiveProperty<string[]> Messages => _messages;
+        private readonly ReactiveProperty<string[]> _messages = new();
+
+        [Inject]
+        private void Construct(ChatViewModel chatViewModel)
+        {
+            _chatViewModel = chatViewModel;
+        }
         
-        private readonly CompositeDisposable _disposables = new();
-        
-        public override void Spawned()
+        private void Start()
         {
             base.Spawned();
             
-            ChatViewModel chatViewModel;
-
-            var diContainer = FindObjectOfType<SceneContext>()?.Container;
-            if (diContainer != null)
-                chatViewModel = diContainer.Resolve<ChatViewModel>();
-            else
-            {
-                Debug.LogError("ERROR! DI CONTAINER IS NOT FOUND!");
-                return;
-            }
-            
-            chatViewModel.InitializeNetworkChatHandler(this);
+            _chatViewModel.InitializeNetworkChatHandler(this);
             UpdateLocalMessages();
-        }
-        
-        private void OnDestroy()
-        {
-            _disposables.Dispose();
         }
     
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -58,7 +48,7 @@ namespace _Project.Scripts
             
             newArray.Add(message);
 
-            if (newArray.Count > 9)
+            if (newArray.Count > 20)
                 newArray.RemoveAt(0);
 
             for (int i = 0; i < newArray.Count; i++)
