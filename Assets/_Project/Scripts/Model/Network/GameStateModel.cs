@@ -1,14 +1,15 @@
 using Fusion;
+using UnityEngine;
 
 namespace _Project.Scripts.Model
 {
     public class GameStateModel : NetworkBehaviour
     {
-        [Networked]
-        public NetworkBool IsGameActive { get; private set;  } = default;
-        
         [Networked, Capacity(12)]
-        public NetworkDictionary<PlayerRef, Player> SpawnedCharacters { get; } = default;
+        public NetworkDictionary<PlayerRef, Player> SpawnedCharacters => default;
+        
+        [Networked]
+        public NetworkBool IsGameActive { get; private set; }
 
         public void EndGame()
         {

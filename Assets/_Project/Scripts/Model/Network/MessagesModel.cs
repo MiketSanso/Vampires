@@ -3,12 +3,11 @@ using System.Linq;
 using _Project.Scripts.ViewModel;
 using Fusion;
 using R3;
-using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts
 {
-    public class MessagesModel : NetworkBehaviour
+    public class MessagesModel : NetworkBehaviour, IInitializable
     {
         [Networked, Capacity(20)]
         private NetworkArray<NetworkString<_64>> _networkMessages { get; } = default;
@@ -24,10 +23,8 @@ namespace _Project.Scripts
             _chatViewModel = chatViewModel;
         }
         
-        private void Start()
+        public void Initialize()
         {
-            base.Spawned();
-            
             _chatViewModel.InitializeNetworkChatHandler(this);
             UpdateLocalMessages();
         }

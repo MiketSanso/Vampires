@@ -29,16 +29,36 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         _transformsModel = playersModel;
         _prefabsData = prefabsData;
     }
-    
-    public async void OnConnectedToServer(NetworkRunner runner)
+
+    private async void Start()
     {
-        NetworkObject networkStateModel  = runner.Spawn(_prefabsData.GameStateModel, Vector3.zero, Quaternion.identity);
-        NetworkObject networkMessageModel = runner.Spawn(_prefabsData.MessageModel, Vector3.zero, Quaternion.identity);
+        var scene = SceneRef.FromIndex(1);
+        var sceneInfo = new NetworkSceneInfo();
+        if (scene.IsValid) {
+            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
+        }
+        _runner = gameObject.AddComponent<NetworkRunner>();
+        _runner.ProvideInput = true;
+
+        await _runner.StartGame(new StartGameArgs()
+        {
+            GameMode = _gameSettingsModel.GameMode,
+            SessionName = _gameSettingsModel.SessionName,
+            Scene = scene,
+            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+        });
+        
+        
+        NetworkObject networkStateModel  = _runner.Spawn(_prefabsData.GameStateModel, Vector3.zero, Quaternion.identity);
+        NetworkObject networkMessageModel = _runner.Spawn(_prefabsData.MessageModel, Vector3.zero, Quaternion.identity);
 
         if (networkStateModel.TryGetComponent(out GameStateModel stateModel) &&
             networkMessageModel.TryGetComponent(out MessagesModel messagesModel))
         {
             _diContainer.Inject(messagesModel);
+            if (messagesModel is IInitializable initializable)
+                initializable.Initialize();
+            
             _gameStateModel = stateModel;
             
             _diContainer.Bind<GameStateModel>()
@@ -49,23 +69,11 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             Debug.Log("Spawned incorrect object!");
         
         _gameStateModel.StartGame();
+    }
+    
+    public void OnConnectedToServer(NetworkRunner runner)
+    {
         
-        _runner = gameObject.AddComponent<NetworkRunner>();
-        _runner.ProvideInput = true;
-        
-        var scene = SceneRef.FromIndex(1);
-        var sceneInfo = new NetworkSceneInfo();
-        if (scene.IsValid) {
-            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
-        }
-
-        await _runner.StartGame(new StartGameArgs()
-        {
-            GameMode = _gameSettingsModel.GameMode,
-            SessionName = _gameSettingsModel.SessionName,
-            Scene = scene,
-            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
-        });
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef playerRef)
@@ -81,10 +89,10 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             _transformsModel.AddTarget(player.transform); 
             
             if (player.TryGetComponent(out Player playerClass))
-                _gameStateModel.SpawnedCharacters.Add(playerRef, playerClass);
+                _gameStateModel.SpawnedCharacters.Set(playerRef, playerClass);
             else 
                 Debug.Log("Spawned incorrect object!");
-        
+            
             InjectDependencies(player);
             InjectDependencies(enemy);
         }
