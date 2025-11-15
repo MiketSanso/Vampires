@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ee766ff5ea478cad28cf8f1da4cf12, type: 3}
   m_Name: SceneNumbData
   m_EditorClassIdentifier: 
-  <Menu>k__BackingField: 0
-  <Game>k__BackingField: 1
+  <Menu>k__BackingField: 1
+  <Game>k__BackingField: 2

@@ -640,6 +640,7 @@ GameObject:
   - component: {fileID: 4612795820813875305}
   - component: {fileID: 493133597469766150}
   - component: {fileID: 4082643578118833912}
+  - component: {fileID: 3465175499849107719}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -683,6 +684,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 4082643578118833912}
+  - {fileID: 3465175499849107719}
   - {fileID: 5522980719456445124}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &4082643578118833912
@@ -705,6 +707,23 @@ MonoBehaviour:
   _characterController: {fileID: 5522980719456445124}
   _gameCamera: {fileID: 1099155426661456181}
   _audioListener: {fileID: 4621078178696741776}
+--- !u!114 &3465175499849107719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036580269945748708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkTransform
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &2814659586737884778
 GameObject:
   m_ObjectHideFlags: 0

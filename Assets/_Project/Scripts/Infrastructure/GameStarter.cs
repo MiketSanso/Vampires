@@ -7,19 +7,19 @@ namespace _Project.Scripts.Infrastructure
     public class GameStarter : MonoBehaviour
     {
         private PrefabsData _prefabsData;
-        private IInstantiator _instantiator;
+        private DiContainer _diContainer;
         
         [Inject]
-        private void Construct(IInstantiator instantiator,
+        private void Construct(DiContainer diContainer,
             PrefabsData prefabsData)
         {
             _prefabsData = prefabsData;
-            _instantiator = instantiator;
+            _diContainer = diContainer;
         }
 
         private void Awake()
         {
-            _instantiator.InstantiatePrefab(_prefabsData.BasicSpawner);
+            _diContainer.InstantiatePrefab(_prefabsData.BasicSpawner);
         }
     }
 }

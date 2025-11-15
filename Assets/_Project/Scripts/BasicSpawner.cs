@@ -16,20 +16,23 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
     private DiContainer _diContainer;
     private PrefabsData _prefabsData;
     private GameStateModel _gameStateModel;
+    private SceneNumbData _sceneNumbData;
     
     [Inject]
     private void Construct(GameSettingsModel gameSettingsModel,
         DiContainer diContainer,
-        PrefabsData prefabsData)
+        PrefabsData prefabsData,
+        SceneNumbData sceneNumbData)
     {
         _gameSettingsModel = gameSettingsModel;
         _diContainer = diContainer;
         _prefabsData = prefabsData;
+        _sceneNumbData = sceneNumbData;
     }
 
     private async void Start()
     {
-        var scene = SceneRef.FromIndex(1);
+        var scene = SceneRef.FromIndex(_sceneNumbData.Game);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid) {
             sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
@@ -79,7 +82,8 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             
             player.AssignInputAuthority(playerRef);
 
-            _gameStateModel.SpawnedCharacters.Set(playerRef, player);
+            if (player.TryGetComponent(out NetworkTransform transf))
+                _gameStateModel.SpawnedCharacters.Set(playerRef, transf);
         }
     }
     
@@ -90,12 +94,10 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (_gameStateModel.SpawnedCharacters.TryGet(player, out NetworkObject playerObject))
+        if (_gameStateModel.SpawnedCharacters.TryGet(player, out NetworkTransform playerObject))
         {
-            if (playerObject != null && playerObject != null)
-            {
-                runner.Despawn(playerObject);
-            }
+            if (playerObject.TryGetComponent(out NetworkObject netObject))
+                runner.Despawn(netObject);
 
             _gameStateModel.SpawnedCharacters.Remove(player);
         }

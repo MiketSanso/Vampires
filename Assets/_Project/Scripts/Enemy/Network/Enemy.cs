@@ -29,25 +29,25 @@ namespace _Project.Scripts.Enemys
             
             if (_gameStateModel.IsGameActive)
             {
-                Transform closestTransform;
+                NetworkTransform closestTransform;
                 
                 if (_gameStateModel.SpawnedCharacters.Count == 0) return;
                 
                var firstElement = _gameStateModel.SpawnedCharacters.First();
-               closestTransform = firstElement.Value.transform;
+               closestTransform = firstElement.Value;
                
                foreach (var element in _gameStateModel.SpawnedCharacters)
                {
-                   NetworkObject player = element.Value;
+                   NetworkTransform player = element.Value.GetComponent<NetworkTransform>();
                    
-                   if (Vector3.Distance( _characterController.transform.position, closestTransform.position) >
+                   if (Vector3.Distance( _characterController.transform.position, closestTransform.transform.position) >
                        Vector3.Distance( _characterController.transform.position, player.transform.position))
-                       closestTransform = player.transform; 
+                       closestTransform = player; 
                }
 
-               Debug.Log(closestTransform.position);
+               Debug.Log(closestTransform.transform.position);
                
-               Vector3 targetPosition = closestTransform.position;
+               Vector3 targetPosition = closestTransform.transform.position;
                
                Vector3 moveDirection = (targetPosition - _characterController.transform.position).normalized;
                moveDirection.y = 0;

@@ -13,7 +13,8 @@ namespace _Project.Scripts.Infrastructure
         
         public override void InstallBindings()
         {
-            Container.Bind<SceneChanger>().AsSingle().WithArguments(_sceneNumbData);
+            Container.Bind<SceneNumbData>().FromInstance(_sceneNumbData).AsSingle();
+            Container.Bind<SceneChanger>().AsSingle();
             Container.Bind<GameSettingsModel>().AsSingle();
             Container.Bind<PrefabsData>().FromInstance(_prefabsData).AsSingle();
         }
