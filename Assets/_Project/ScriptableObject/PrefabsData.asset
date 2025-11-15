@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e4b95ac86e4c26ba0525306444b2d5, type: 3}
   m_Name: PrefabsData
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.ScriptableObjects.PrefabsData
-  <Player>k__BackingField: {fileID: 493133597469766150, guid: 76b22d58f39c78b4cacec3032152e6b7, type: 3}
-  <MessageModel>k__BackingField: {fileID: 3691812620235933535, guid: 88fdb4928b10d17409944da05407e5ae, type: 3}
+  <Player>k__BackingField: {fileID: 4082643578118833912, guid: 76b22d58f39c78b4cacec3032152e6b7, type: 3}
+  <MessageModel>k__BackingField: {fileID: 2843646100808487951, guid: 88fdb4928b10d17409944da05407e5ae, type: 3}
   <BasicSpawner>k__BackingField: {fileID: 8336085418334597501, guid: fe98b99f0b7ef2c4b9c5e9699c5fe72a, type: 3}
-  <Enemy>k__BackingField: {fileID: 4084909144196547758, guid: 9d3678d8da420c844b2c434a38ae297c, type: 3}
-  <GameStateModel>k__BackingField: {fileID: 3443158925620986933, guid: 11155166a66d8be4fb87d5ea0b0da808, type: 3}
+  <Enemy>k__BackingField: {fileID: 4172615443298726264, guid: 9d3678d8da420c844b2c434a38ae297c, type: 3}
+  <GameStateModel>k__BackingField: {fileID: -6124450924041449573, guid: 11155166a66d8be4fb87d5ea0b0da808, type: 3}

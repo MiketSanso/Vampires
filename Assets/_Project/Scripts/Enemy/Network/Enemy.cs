@@ -4,7 +4,7 @@ using Fusion;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Enemy
+namespace _Project.Scripts.Enemys
 {
     public class Enemy : NetworkBehaviour
     {
@@ -21,6 +21,12 @@ namespace _Project.Scripts.Enemy
 
         public override void FixedUpdateNetwork()
         {
+            if (_gameStateModel == null)
+            {
+                Debug.LogWarning(_gameStateModel);
+                return;
+            }
+            
             if (_gameStateModel.IsGameActive)
             {
                 Transform closestTransform;
@@ -32,13 +38,15 @@ namespace _Project.Scripts.Enemy
                
                foreach (var element in _gameStateModel.SpawnedCharacters)
                {
-                   Player player = element.Value;
+                   NetworkObject player = element.Value;
                    
                    if (Vector3.Distance( _characterController.transform.position, closestTransform.position) >
                        Vector3.Distance( _characterController.transform.position, player.transform.position))
                        closestTransform = player.transform; 
                }
-                
+
+               Debug.Log(closestTransform.position);
+               
                Vector3 targetPosition = closestTransform.position;
                
                Vector3 moveDirection = (targetPosition - _characterController.transform.position).normalized;

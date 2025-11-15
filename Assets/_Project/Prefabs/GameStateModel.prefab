@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1750592616913430830}
-  - component: {fileID: -6124450924041449573}
   - component: {fileID: 3443158925620986933}
+  - component: {fileID: -6124450924041449573}
   m_Layer: 0
   m_Name: GameStateModel
   m_TagString: Untagged
@@ -27,28 +27,12 @@ Transform:
   m_GameObject: {fileID: 386744994010163368}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1505.9775, y: 0, z: -6491.998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6124450924041449573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386744994010163368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b143804d55342089c8b1fe0279531a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Model.GameStateModel
-  _IsGameActive:
-    _value: 0
-  _SpawnedCharacters:
-    _items: []
 --- !u!114 &3443158925620986933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,3 +52,19 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: -6124450924041449573}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &-6124450924041449573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386744994010163368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b143804d55342089c8b1fe0279531a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Model.GameStateModel
+  _SpawnedCharacters:
+    _items: []
+  _IsGameActive:
+    _value: 0

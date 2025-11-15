@@ -13,7 +13,6 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
 {
     private NetworkRunner _runner;
     private GameSettingsModel _gameSettingsModel;
-    private TransformsModel _transformsModel;
     private DiContainer _diContainer;
     private PrefabsData _prefabsData;
     private GameStateModel _gameStateModel;
@@ -21,12 +20,10 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
     [Inject]
     private void Construct(GameSettingsModel gameSettingsModel,
         DiContainer diContainer,
-        TransformsModel playersModel,
         PrefabsData prefabsData)
     {
         _gameSettingsModel = gameSettingsModel;
         _diContainer = diContainer;
-        _transformsModel = playersModel;
         _prefabsData = prefabsData;
     }
 
@@ -47,54 +44,42 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             Scene = scene,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
-        
-        
-        NetworkObject networkStateModel  = _runner.Spawn(_prefabsData.GameStateModel, Vector3.zero, Quaternion.identity);
-        NetworkObject networkMessageModel = _runner.Spawn(_prefabsData.MessageModel, Vector3.zero, Quaternion.identity);
-
-        if (networkStateModel.TryGetComponent(out GameStateModel stateModel) &&
-            networkMessageModel.TryGetComponent(out MessagesModel messagesModel))
-        {
-            _diContainer.Inject(messagesModel);
-            if (messagesModel is IInitializable initializable)
-                initializable.Initialize();
-            
-            _gameStateModel = stateModel;
-            
-            _diContainer.Bind<GameStateModel>()
-                .FromInstance(_gameStateModel)
-                .AsSingle();
-        }
-        else 
-            Debug.Log("Spawned incorrect object!");
-        
-        _gameStateModel.StartGame();
     }
     
-    public void OnConnectedToServer(NetworkRunner runner)
-    {
-        
-    }
-
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef playerRef)
     {
         if (runner.IsServer)
         {
-            Vector3 spawnPosition = new Vector3(0, 4, 0);
+            NetworkObject networkStateModel  = InstantiateNetworkObject(_prefabsData.GameStateModel, Vector3.zero);
+            NetworkObject networkMessageModel = InstantiateNetworkObject(_prefabsData.MessageModel, Vector3.zero);
+
+            if (networkStateModel.TryGetComponent(out GameStateModel stateModel) &&
+                networkMessageModel.TryGetComponent(out MessagesModel messagesModel))
+            {
+                if (messagesModel is IInitializable initializable)
+                    initializable.Initialize();
             
-            NetworkObject player = runner.Spawn(_prefabsData.Player, spawnPosition, Quaternion.identity, playerRef);
-            NetworkObject enemy = runner.Spawn(_prefabsData.Enemy, spawnPosition + new Vector3(1, 0, 3), Quaternion.identity);
             
-            player.AssignInputAuthority(playerRef);
-            _transformsModel.AddTarget(player.transform); 
+                _gameStateModel = stateModel;
             
-            if (player.TryGetComponent(out Player playerClass))
-                _gameStateModel.SpawnedCharacters.Set(playerRef, playerClass);
+                _diContainer.Bind<GameStateModel>()
+                    .FromInstance(_gameStateModel)
+                    .AsSingle();
+            }
             else 
                 Debug.Log("Spawned incorrect object!");
             
-            InjectDependencies(player);
-            InjectDependencies(enemy);
+            _gameStateModel.StartGame();
+            
+            
+            Vector3 spawnPosition = new Vector3(0, 4, 0);
+            
+            NetworkObject player = InstantiateNetworkObject(_prefabsData.Player, spawnPosition, playerRef);
+            NetworkObject enemy = InstantiateNetworkObject(_prefabsData.Enemy, spawnPosition + new Vector3(1, 0, 3));
+            
+            player.AssignInputAuthority(playerRef);
+
+            _gameStateModel.SpawnedCharacters.Set(playerRef, player);
         }
     }
     
@@ -105,11 +90,11 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (_gameStateModel.SpawnedCharacters.TryGet(player, out Player playerObject))
+        if (_gameStateModel.SpawnedCharacters.TryGet(player, out NetworkObject playerObject))
         {
-            if (playerObject != null && playerObject.Object != null)
+            if (playerObject != null && playerObject != null)
             {
-                runner.Despawn(playerObject.Object);
+                runner.Despawn(playerObject);
             }
 
             _gameStateModel.SpawnedCharacters.Remove(player);
@@ -135,6 +120,7 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         input.Set(data);
     }
     
+    public void OnConnectedToServer(NetworkRunner runner) { }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
     public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
@@ -150,12 +136,40 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data){ }
     public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress){ }
     
-    private void InjectDependencies(NetworkObject playerObject)
+    private void InjectDependencies(NetworkObject networkObject)
     {
-        var injectables = playerObject.GetComponentsInChildren<MonoBehaviour>(true);
+        _diContainer.Inject(networkObject);
+        
+        var injectables = networkObject.GetComponentsInChildren<MonoBehaviour>(true);
         foreach (var injectable in injectables)
         {
             _diContainer.Inject(injectable);
         }
+    }
+
+    private NetworkObject InstantiateNetworkObject(NetworkBehaviour networkBehaviour, Vector3 spawnPosition, PlayerRef playerRef)
+    {
+        if (networkBehaviour.TryGetComponent(out NetworkObject networkObject))
+        {
+            NetworkObject newObject = _runner.Spawn(networkObject, spawnPosition, Quaternion.identity, playerRef);
+            InjectDependencies(newObject);
+            return newObject;
+        }
+        
+        Debug.LogError("Error, network object not found!");
+        return null;
+    }
+    
+    private NetworkObject InstantiateNetworkObject(NetworkBehaviour networkBehaviour, Vector3 spawnPosition)
+    {
+        if (networkBehaviour.TryGetComponent(out NetworkObject networkObject))
+        {
+            NetworkObject newObject = _runner.Spawn(networkObject, spawnPosition, Quaternion.identity);
+            InjectDependencies(newObject);
+            return newObject;
+        }
+        
+        Debug.LogError("Error, network object not found!");
+        return null;
     }
 }
