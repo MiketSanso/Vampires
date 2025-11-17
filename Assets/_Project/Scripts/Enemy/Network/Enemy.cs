@@ -29,32 +29,29 @@ namespace _Project.Scripts.Enemys
             
             if (_gameStateModel.IsGameActive)
             {
-                NetworkTransform closestTransform;
+                Transform closestTransform;
                 
                 if (_gameStateModel.SpawnedCharacters.Count == 0) return;
                 
-               var firstElement = _gameStateModel.SpawnedCharacters.First();
-               closestTransform = firstElement.Value;
-               
-               foreach (var element in _gameStateModel.SpawnedCharacters)
-               {
-                   NetworkTransform player = element.Value.GetComponent<NetworkTransform>();
-                   
-                   if (Vector3.Distance( _characterController.transform.position, closestTransform.transform.position) >
-                       Vector3.Distance( _characterController.transform.position, player.transform.position))
-                       closestTransform = player; 
-               }
-
-               Debug.Log(closestTransform.transform.position);
-               
-               Vector3 targetPosition = closestTransform.transform.position;
-               
-               Vector3 moveDirection = (targetPosition - _characterController.transform.position).normalized;
-               moveDirection.y = 0;
-               _characterController.Move(moveDirection * Runner.DeltaTime);
-               
-               Vector3 lookAtPosition = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
-               transform.LookAt(lookAtPosition);
+                NetworkObject firstElement = _gameStateModel.SpawnedCharacters.First().Value;
+                NetworkCharacterController foundController = firstElement.GetComponentInChildren<NetworkCharacterController>();
+                
+                closestTransform = foundController.transform;
+                
+                foreach (var element in _gameStateModel.SpawnedCharacters)
+                {
+                    NetworkCharacterController foundControllerIn = firstElement.GetComponentInChildren<NetworkCharacterController>();
+                    
+                    if (Vector3.Distance( _characterController.transform.position, closestTransform.transform.position) >
+                        Vector3.Distance( _characterController.transform.position, foundControllerIn.transform.position))
+                        closestTransform = foundControllerIn.transform; 
+                }
+                
+                Vector3 targetPosition = closestTransform.transform.position;
+                
+                Vector3 moveDirection = (targetPosition - _characterController.transform.position).normalized;
+                moveDirection.y = 0;
+                _characterController.Move(moveDirection * Runner.DeltaTime);
             }
         }
     }

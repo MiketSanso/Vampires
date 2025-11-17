@@ -1,7 +1,6 @@
 using System;
 using _Project.Scripts.Model;
 using R3;
-using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.ViewModel

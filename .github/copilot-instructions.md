@@ -1,6 +1,6 @@
 <!-- UNITY CODE ASSIST INSTRUCTIONS START -->
-- Project name: Vampires
-- Unity version: Unity 6000.2.6f2
+- Project name: Vamprites
+- Unity version: Unity 6000.2.0b9
 - Active scene:
   - Name: Bootstrap
   - Tags:
@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
-  - Name: Bootstrap
+  - Name: Parameters
   - Tag: Untagged
-  - Layer: Default
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

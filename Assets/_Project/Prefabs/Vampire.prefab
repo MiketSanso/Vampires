@@ -166,8 +166,8 @@ MonoBehaviour:
   jumpImpulse: 8
   acceleration: 50
   braking: 6.5
-  maxSpeed: 12
-  rotationSpeed: 4
+  maxSpeed: 11
+  rotationSpeed: 10
 --- !u!1 &4296603703064260826
 GameObject:
   m_ObjectHideFlags: 0

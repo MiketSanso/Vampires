@@ -9,11 +9,11 @@ namespace _Project.Scripts
 {
     public class MessagesModel : NetworkBehaviour, IInitializable
     {
+        private ChatViewModel _chatViewModel;
+
         [Networked, Capacity(20)]
         private NetworkArray<NetworkString<_64>> _networkMessages { get; } = default;
         
-        private ChatViewModel _chatViewModel;
-
         public ReadOnlyReactiveProperty<string[]> Messages => _messages;
         private readonly ReactiveProperty<string[]> _messages = new();
 

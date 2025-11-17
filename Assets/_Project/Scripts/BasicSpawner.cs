@@ -72,7 +72,7 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             else 
                 Debug.Log("Spawned incorrect object!");
             
-            _gameStateModel.StartGame();
+            _gameStateModel.RPC_StartGame();
             
             
             Vector3 spawnPosition = new Vector3(0, 4, 0);
@@ -82,8 +82,7 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             
             player.AssignInputAuthority(playerRef);
 
-            if (player.TryGetComponent(out NetworkTransform transf))
-                _gameStateModel.SpawnedCharacters.Set(playerRef, transf);
+            _gameStateModel.SpawnedCharacters.Set(playerRef, player);
         }
     }
     
@@ -94,12 +93,14 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (_gameStateModel.SpawnedCharacters.TryGet(player, out NetworkTransform playerObject))
+        if (_gameStateModel.SpawnedCharacters.TryGet(player, out NetworkObject playerObject))
         {
-            if (playerObject.TryGetComponent(out NetworkObject netObject))
-                runner.Despawn(netObject);
+            runner.Despawn(playerObject);
 
-            _gameStateModel.SpawnedCharacters.Remove(player);
+            if (runner.IsServer)
+            {
+                _gameStateModel.SpawnedCharacters.Remove(player);
+            }
         }
     }
     
