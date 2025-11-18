@@ -43,7 +43,7 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
         await _runner.StartGame(new StartGameArgs()
         {
             GameMode = _gameSettingsModel.GameMode,
-            SessionName = _gameSettingsModel.SessionName,
+            SessionName = _gameSettingsModel.SessionCode,
             Scene = scene,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });

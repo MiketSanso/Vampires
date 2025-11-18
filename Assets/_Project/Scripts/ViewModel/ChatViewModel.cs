@@ -38,10 +38,12 @@ namespace _Project.Scripts.ViewModel
         
         private void AddMessage(string message)
         {
-            message = $"{_gameSettings.Nickname}: {message}\n\n";
+            if (!string.IsNullOrEmpty(message))
+            {
+                message = $"{_gameSettings.Nickname}: {message}\n";
 
-            _messagesModel.RPC_AddMessage(message);        
+                _messagesModel.RPC_AddMessage(message);   
+            }
         }
-
     }
 }

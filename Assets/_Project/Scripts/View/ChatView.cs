@@ -43,6 +43,13 @@ namespace _Project.Scripts.View
                     h => _button.onClick.RemoveListener(h)
                 ).Subscribe(_ => _iChatViewModel.AddMessageCommand.Execute(_inputField.text))
                 .AddTo(_disposables);
+            
+            Observable.FromEvent(
+                    h => new UnityEngine.Events.UnityAction(h),
+                    h => _button.onClick.AddListener(h), 
+                    h => _button.onClick.RemoveListener(h)
+                ).Subscribe(_ => ClearInputField())
+                .AddTo(_disposables);
 
             _iChatViewModel.Messages.Subscribe(messages => 
             {
@@ -69,6 +76,11 @@ namespace _Project.Scripts.View
             UpdateLayout().Forget();
         }
         
+        private void ClearInputField()
+        {
+            _inputField.text = string.Empty;
+        }
+        
         private async UniTask UpdateLayout()
         {
             Canvas.ForceUpdateCanvases();
@@ -76,15 +88,19 @@ namespace _Project.Scripts.View
     
             float textHeight = GetTextHeight();
             float containerHeight = _microContent.rectTransform.rect.height;
+            _text.rectTransform.sizeDelta = new Vector3(_microContent.rectTransform.rect.width, _microContent.rectTransform.rect.height, 1);
+            _text.rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     
             if (textHeight > containerHeight)
             {
                 Vector2 size = _microContent.rectTransform.sizeDelta;
-                size.y = textHeight;
+                size.y = textHeight + 30;
                 _microContent.rectTransform.sizeDelta = size;
 
                 Canvas.ForceUpdateCanvases();
                 await UniTask.DelayFrame(1);
+                
+                _text.rectTransform.anchoredPosition = new Vector3(0, 0, 0);
 
                 _scrollRect.verticalNormalizedPosition = 0f;
             }
@@ -95,7 +111,7 @@ namespace _Project.Scripts.View
             if (_text is TextMeshProUGUI tmp)
             {
                 tmp.ForceMeshUpdate();
-                return tmp.preferredHeight + 30f;
+                return tmp.preferredHeight;
             }
 
             Debug.LogError("You use don't right text!");

@@ -16,6 +16,8 @@ namespace _Project.Scripts.Model
         public ReadOnlyReactiveProperty<float> Damage => _damage;
         public ReadOnlyReactiveProperty<float> Speed => _speed;
         public ReadOnlyReactiveProperty<float> Experience => _experience;
+        public ReadOnlyReactiveProperty<float> ExperienceLevel => _experienceLevel;
+
         
         private PlayerData _playerData;
         
@@ -23,6 +25,7 @@ namespace _Project.Scripts.Model
         private readonly ReactiveProperty<float> _health = new();
         private readonly ReactiveProperty<float> _damage = new();
         private readonly ReactiveProperty<float> _speed = new();
+        private readonly ReactiveProperty<float> _experienceLevel = new();
         
         [Inject]
         private void Construct(PlayerData playerData)
@@ -36,6 +39,7 @@ namespace _Project.Scripts.Model
             _damage.Value = _playerData.StartDamage;
             _speed.Value = _playerData.StartSpeed;
             _experience.Value = 0;
+            _experienceLevel.Value = 0;
             
             ReactiveAddHealth.Subscribe(_ => _health.Value += _playerData.StepAddHealth);
             ReactiveAddDamage.Subscribe(_ => _health.Value += _playerData.StepAddHealth);

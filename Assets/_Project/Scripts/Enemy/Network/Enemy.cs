@@ -1,5 +1,6 @@
 using System.Linq;
 using _Project.Scripts.Model;
+using _Project.Scripts.ScriptableObjects;
 using Fusion;
 using UnityEngine;
 using Zenject;
@@ -9,13 +10,17 @@ namespace _Project.Scripts.Enemys
     public class Enemy : NetworkBehaviour
     {
         [SerializeField] private float _speed;
-        [SerializeField] private NetworkCharacterController _characterController;
+        [SerializeField] private EnemyModel _enemyModel;
         
+        private NetworkCharacterController _characterController;
         private GameStateModel _gameStateModel;
-
+        private EnemyData _enemyData;
+        
         [Inject]
-        private void Construct(GameStateModel gameStateModel)
+        private void Construct(IInstantiator instantiator, GameStateModel gameStateModel)
         {
+            //    _playerModel = instantiator.Instantiate<PlayerModel>();
+
             _gameStateModel = gameStateModel;
         }
 

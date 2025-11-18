@@ -7,7 +7,9 @@ namespace _Project.Scripts.ViewModel
         public ReadOnlyReactiveProperty<float> Health { get; }
         public ReadOnlyReactiveProperty<float> Damage { get; }
         public ReadOnlyReactiveProperty<float> Speed { get; }
-        public ReadOnlyReactiveProperty<float> Experience { get; }
+        public ReadOnlyReactiveProperty<float> ExperienceState { get; }
+        public ReadOnlyReactiveProperty<float> ExperienceLevel { get; }
+
 
         public ReactiveCommand<Unit> AddHealth { get; }
         public ReactiveCommand<Unit> AddDamage { get; }
