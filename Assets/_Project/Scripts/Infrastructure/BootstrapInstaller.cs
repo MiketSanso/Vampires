@@ -1,7 +1,6 @@
 using _Project.Scripts.Model;
 using _Project.Scripts.ScriptableObjects;
 using _Project.Scripts.Services;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 using Zenject;
 

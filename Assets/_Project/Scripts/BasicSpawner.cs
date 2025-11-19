@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using _Project.Scripts;
 using _Project.Scripts.Model;
 using _Project.Scripts.ScriptableObjects;
+using _Project.Scripts.ViewModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -78,6 +79,13 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
             Vector3 spawnPosition = new Vector3(0, 4, 0);
             
             NetworkObject player = InstantiateNetworkObject(_prefabsData.Player, spawnPosition, playerRef);
+             
+            if (player.TryGetComponent(out PlayerModel playerModel))
+            {   
+                PlayerViewModel playerViewModel = _diContainer.Instantiate(PlayerViewModel);
+                playerViewModel.InitializePlayerModel(playerModel);
+            }
+            
             NetworkObject enemy = InstantiateNetworkObject(_prefabsData.Enemy, spawnPosition + new Vector3(1, 0, 3));
             
             player.AssignInputAuthority(playerRef);

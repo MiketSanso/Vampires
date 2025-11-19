@@ -1,4 +1,5 @@
 using _Project.Scripts.ViewModel;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,21 +13,42 @@ namespace _Project.Scripts.View
         [SerializeField] private TMP_Text _textExperience;
         
         private IPlayerViewModel _playerViewModel;
-
-        private void Start()
+        
+        private readonly CompositeDisposable _disposables = new CompositeDisposable();
+        
+        private void InitializePlayerViewModel(IPlayerViewModel playerViewModel)
         {
-            _playerViewModel.ExperienceState.Subscribe(a => ChangeExperience());
+            _playerViewModel = playerViewModel;
+            
+            _playerViewModel.Health.Subscribe(healthState =>
+            {
+                ChangeHealthSlider(healthState);
+            });
+            
+            _playerViewModel.ExperienceState.Subscribe(experienceState =>
+            {
+                ChangeExperienceSlider(experienceState);
+            });
+            
+            _playerViewModel.ExperienceLevel.Subscribe(experienceLevel =>
+            {
+                ChangeExperienceText(experienceLevel);
+            });
         }
         
-        private void ChangeHealth()
+        private void ChangeHealthSlider(float healthState)
         {
-            _sliderHealth.value = _playerViewModel.Health.CurrentValue;
+            _sliderHealth.value = healthState;
         }
     
-        private void ChangeExperience()
+        private void ChangeExperienceSlider(float exeprienceState)
         {
-            _sliderExperience.value = _playerViewModel.ExperienceState.CurrentValue;
-            _textExperience.text = _playerViewModel.ExperienceLevel.ToString();
+            _sliderExperience.value = exeprienceState;
+        }
+        
+        private void ChangeExperienceText(float exeprienceLevel)
+        {
+            _textExperience.text = exeprienceLevel.ToString();
         }
     }
 }

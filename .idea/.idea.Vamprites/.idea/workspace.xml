@@ -5,36 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96d9277e-86b2-4734-a4f8-ad2d76543d6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/EnemyModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/EnemyModel.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/CirlceAttack.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/CirlceAttack.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/AttackAreasData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/AttackAreasData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/EnemyData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/EnemyData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/GameSettingsData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/GameSettingsData.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/copilot-instructions.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/copilot-instructions.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Vamprites/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Vamprites/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/Bootstrap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/Bootstrap.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/BasicSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/BasicSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Enemy/Network/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Enemy/Network/Enemy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Infrastructure/BootstrapInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Infrastructure/BootstrapInstaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/GameSettingsModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/GameSettingsModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/PlayerModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/PlayerModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/TextsData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/TextsData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/View/ChatView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/View/ChatView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/View/PlayerView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/View/PlayerView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/ChatViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/ChatViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/ConnectViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/ConnectViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/Interfaces/IPlayerViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/Interfaces/IPlayerViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/PlayerViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/PlayerViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +133,8 @@
       <workItem from="1761058164220" duration="203000" />
       <workItem from="1761913588950" duration="1883000" />
       <workItem from="1762260595197" duration="21795000" />
-      <workItem from="1763445479630" duration="15547000" />
+      <workItem from="1763445479630" duration="15660000" />
+      <workItem from="1763538827095" duration="6408000" />
     </task>
     <task id="LOCAL-00001" summary="Create chat system">
       <option name="closed" value="true" />
@@ -207,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763412051657</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add health and experience system">
+      <option name="closed" value="true" />
+      <created>1763496766444</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1763496766444</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,6 +214,7 @@
     <MESSAGE value="Creating is longest" />
     <MESSAGE value="SCAP" />
     <MESSAGE value="Create PlayerViewSystem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create PlayerViewSystem" />
+    <MESSAGE value="Add health and experience system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add health and experience system" />
   </component>
 </project>

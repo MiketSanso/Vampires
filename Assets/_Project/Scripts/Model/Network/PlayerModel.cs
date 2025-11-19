@@ -17,7 +17,6 @@ namespace _Project.Scripts.Model
         public ReadOnlyReactiveProperty<float> Speed => _speed;
         public ReadOnlyReactiveProperty<float> Experience => _experience;
         public ReadOnlyReactiveProperty<float> ExperienceLevel => _experienceLevel;
-
         
         private PlayerData _playerData;
         
