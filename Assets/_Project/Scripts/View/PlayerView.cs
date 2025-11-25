@@ -16,7 +16,7 @@ namespace _Project.Scripts.View
         
         private readonly CompositeDisposable _disposables = new CompositeDisposable();
         
-        private void InitializePlayerViewModel(IPlayerViewModel playerViewModel)
+        public void InitializePlayerViewModel(IPlayerViewModel playerViewModel)
         {
             _playerViewModel = playerViewModel;
             

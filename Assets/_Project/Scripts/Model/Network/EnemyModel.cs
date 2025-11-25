@@ -25,7 +25,7 @@ namespace _Project.Scripts.Model
             _enemyData = enemyData;
         }
 
-        public override void Spawned()
+        private void Start()
         {
             _health.Value = _enemyData.Health;
             _damage.Value = _enemyData.Damage;

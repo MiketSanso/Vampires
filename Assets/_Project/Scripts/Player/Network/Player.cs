@@ -1,17 +1,13 @@
+using _Project.Scripts;
 using _Project.Scripts.Model;
 using Fusion;
-using R3;
 using UnityEngine;
-using UnityEngine.UI;
-using Zenject;
 
-public class Player : NetworkBehaviour
+public class Player : NetworkBehaviour, IDamageable
 {
     [SerializeField] private NetworkCharacterController _characterController;
     [SerializeField] private Camera _gameCamera;
     [SerializeField] private AudioListener _audioListener;
-    [SerializeField] private Slider _sliderHealth;
-    [SerializeField] private Slider _sliderExperience;
     [SerializeField] private PlayerModel _playerModel;
     
     public override void FixedUpdateNetwork()
@@ -37,5 +33,10 @@ public class Player : NetworkBehaviour
             _gameCamera.tag = "MainCamera";
             _gameCamera.gameObject.SetActive(true);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _playerModel.ReactiveTakeDamage.Execute(damage);
     }
 }

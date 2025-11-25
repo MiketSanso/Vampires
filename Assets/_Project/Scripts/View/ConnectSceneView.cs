@@ -10,9 +10,10 @@ namespace _Project.Scripts.View
     public class ConnectSceneView : MonoBehaviour
     {
         [SerializeField] private Button _buttonConnectAsHost;
-        [SerializeField] private Button _buttonConnectAsPlayer;
+        [SerializeField] private Button _buttonOpenPanelConnection;
         [SerializeField] private Button _saveName;
         [SerializeField] private TMP_InputField _inputField;
+        [SerializeField] private GameObject _panelCode;
         
         private IConnectViewModel _iConnectViewModel;
         
@@ -35,9 +36,13 @@ namespace _Project.Scripts.View
             
             Observable.FromEvent(
                     h => new UnityEngine.Events.UnityAction(h),
-                    h => _buttonConnectAsPlayer.onClick.AddListener(h),
-                    h => _buttonConnectAsPlayer.onClick.RemoveListener(h)
-                ).Subscribe(_ => _iConnectViewModel.ConnectAsPlayerCommand.Execute(Unit.Default))
+                    h => _buttonOpenPanelConnection.onClick.AddListener(h), 
+                    h => _buttonOpenPanelConnection.onClick.RemoveListener(h)
+                ).Subscribe(_ => _iConnectViewModel.ShowPanelCodeCommand.Execute(Unit.Default))
+                .AddTo(_disposables);
+
+            _iConnectViewModel.OnPanelActivated
+                .Subscribe(_ => _panelCode?.SetActive(true))
                 .AddTo(_disposables);
             
             Observable.FromEvent(

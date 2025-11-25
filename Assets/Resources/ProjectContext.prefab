@@ -46,6 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneNumbData: {fileID: 11400000, guid: 4b8974bc291462646a0e0fbc610ea070, type: 2}
   _prefabsData: {fileID: 11400000, guid: be90a95341d11e649b425e82d9123f6b, type: 2}
+  _attackAreasData: {fileID: 11400000, guid: 6c1960e626602c24bb70d96eceda2e87, type: 2}
+  _enemyData: {fileID: 11400000, guid: ff02267508259c942b9d9c6f250f0a44, type: 2}
+  _playerData: {fileID: 11400000, guid: 6b8d09c7bf3193b4c9888a801501b21f, type: 2}
+  _gameSettingsData: {fileID: 11400000, guid: 0a067607e6c7a8845bd8e8ab153e3a4d, type: 2}
 --- !u!1 &6647920141816115134
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +76,7 @@ Transform:
   m_GameObject: {fileID: 6647920141816115134}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1386.6721, y: 740.76807, z: -203.62067}
+  m_LocalPosition: {x: 1062.3763, y: 0, z: 3023.6194}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 456bfa420c3c4b32b986fdc84012ebd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2acb1ad168644c38af14a5d821eb0841, type: 3}
   m_Name: PlayerData
-  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.ScriptableObjects.EnemyData
-  <Health>k__BackingField: 100
-  <Damage>k__BackingField: 50
-  <Speed>k__BackingField: 1
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.ScriptableObjects.PlayerData
+  <StartHealth>k__BackingField: 100
+  <StartDamage>k__BackingField: 10
+  <StartSpeed>k__BackingField: 1
+  <StepAddSpeed>k__BackingField: 0.3
+  <StepAddDamage>k__BackingField: 5
+  <StepAddHealth>k__BackingField: 5

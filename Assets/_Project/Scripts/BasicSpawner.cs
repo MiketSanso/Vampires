@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using _Project.Scripts;
 using _Project.Scripts.Model;
 using _Project.Scripts.ScriptableObjects;
+using _Project.Scripts.View;
 using _Project.Scripts.ViewModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -82,9 +83,16 @@ public class BasicSpawner : NetworkObject, INetworkRunnerCallbacks
              
             if (player.TryGetComponent(out PlayerModel playerModel))
             {   
-                PlayerViewModel playerViewModel = _diContainer.Instantiate(PlayerViewModel);
+                PlayerViewModel playerViewModel = _diContainer.Instantiate<PlayerViewModel>();
                 playerViewModel.InitializePlayerModel(playerModel);
+                
+                if (player.TryGetComponent(out PlayerView playerView))
+                    playerView.InitializePlayerViewModel(playerViewModel);
+                else
+                    Debug.LogError("PlayerModel could not be spawned!");
             }
+            else
+                Debug.LogError("PlayerModel could not be spawned!");
             
             NetworkObject enemy = InstantiateNetworkObject(_prefabsData.Enemy, spawnPosition + new Vector3(1, 0, 3));
             

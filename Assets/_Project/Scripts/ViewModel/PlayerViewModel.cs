@@ -23,7 +23,7 @@ namespace _Project.Scripts.ViewModel
         {
             _playerModel = playerModel;
             
-            AddHealth = _playerModel.ReactiveAddHealth;
+            AddHealth = _playerModel.ReactiveAddMaxHealth;
             AddDamage = _playerModel.ReactiveAddDamage;
             AddSpeed = _playerModel.ReactiveAddSpeed;
             AddExperience = _playerModel.ReactiveAddExperience;

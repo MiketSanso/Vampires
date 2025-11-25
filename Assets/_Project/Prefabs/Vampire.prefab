@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8783274850040533826}
   - component: {fileID: 4172615443298726264}
   - component: {fileID: 4084909144196547758}
+  - component: {fileID: 4804290488026678852}
   m_Layer: 0
   m_Name: Vampire
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Enemy.Enemy
   _speed: 5
+  _enemyModel: {fileID: 4804290488026678852}
   _characterController: {fileID: 7668120599611621041}
 --- !u!114 &4084909144196547758
 MonoBehaviour:
@@ -66,8 +68,21 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 4172615443298726264}
+  - {fileID: 4804290488026678852}
   - {fileID: 7668120599611621041}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &4804290488026678852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166719180453214041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eeee9c5a79b4ce4900531823cbcf466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.Model.EnemyModel
 --- !u!1 &3952115365585741486
 GameObject:
   m_ObjectHideFlags: 0

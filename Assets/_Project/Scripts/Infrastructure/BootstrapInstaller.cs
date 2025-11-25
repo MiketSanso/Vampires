@@ -24,6 +24,7 @@ namespace _Project.Scripts.Infrastructure
             Container.Bind<SceneChanger>().AsSingle();
             Container.Bind<GameSettingsModel>().AsSingle();
             Container.Bind<PrefabsData>().FromInstance(_prefabsData).AsSingle();
+            Container.Bind<AttackAreasData>().FromInstance(_attackAreasData).AsSingle();
         }
     }
 }
