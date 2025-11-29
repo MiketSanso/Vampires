@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: Assembly-CSharp::_Project.Scripts.ScriptableObjects.EnemyData
   <Health>k__BackingField: 100
-  <Damage>k__BackingField: 5
+  <Damage>k__BackingField: 8
   <Speed>k__BackingField: 1
+  <TimeRecharge>k__BackingField: 2

@@ -5,38 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96d9277e-86b2-4734-a4f8-ad2d76543d6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/IDamageable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/IDamageable.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/View/JoinView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/View/JoinView.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/copilot-instructions.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/copilot-instructions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Vamprites/.idea/shelf/Uncommitted_changes_before_Update_at_16_11_2025_16_02_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Vamprites/.idea/shelf/Uncommitted_changes_before_Update_at_16_11_2025_16_02__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Vamprites/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Vamprites/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ProjectContext.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ProjectContext.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ProjectContext.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ProjectContext.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Vampire.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Vampire.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/Lobby.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/Lobby.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/ScriptableObject/PlayerData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/ScriptableObject/PlayerData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/ScriptableObject/PlayerData.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/ScriptableObject/PlayerData.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/BasicSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/BasicSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/ScriptableObject/EnemyData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/ScriptableObject/EnemyData.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Enemy/Network/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Enemy/Network/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Infrastructure/BootstrapInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Infrastructure/BootstrapInstaller.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/EnemyModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/EnemyModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/PlayerModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/PlayerModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/AttackAreasData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/AttackAreasData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/CirlceAttack.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Player/Network/CirlceAttack.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/EnemyData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ScriptableObjects/EnemyData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/View/ConnectSceneView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/View/ConnectSceneView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/View/PlayerView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/View/PlayerView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/ConnectViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/ConnectViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/Interfaces/IConnectViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/Interfaces/IConnectViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/PlayerViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/PlayerViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,15 +106,13 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="70604">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="70604" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list>
-          <MonoRuntime />
-        </list>
+        <list />
       </option>
       <option name="selectedOptions">
         <list />
@@ -165,7 +140,11 @@
       <workItem from="1762260595197" duration="21795000" />
       <workItem from="1763445479630" duration="15660000" />
       <workItem from="1763538827095" duration="13765000" />
-      <workItem from="1764087162311" duration="13962000" />
+      <workItem from="1764087162311" duration="14150000" />
+      <workItem from="1764137377785" duration="2899000" />
+      <workItem from="1764141130262" duration="3950000" />
+      <workItem from="1764224136098" duration="6711000" />
+      <workItem from="1764329390352" duration="700000" />
     </task>
     <task id="LOCAL-00001" summary="Create chat system">
       <option name="closed" value="true" />
@@ -231,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763580213771</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="End change enemy attack system and create panel for input code to join">
+      <option name="closed" value="true" />
+      <created>1764114161041</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764114161042</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,64 +241,7 @@
     <MESSAGE value="Create PlayerViewSystem" />
     <MESSAGE value="Add health and experience system" />
     <MESSAGE value="123" />
-    <option name="LAST_COMMIT_MESSAGE" value="123" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Project/Scripts/ViewModel/PlayerViewModel.cs</url>
-          <line>23</line>
-          <properties documentPath="C:\Users\Maksim\Vamprites\Assets\_Project\Scripts\ViewModel\PlayerViewModel.cs" containingFunctionPresentation="Method 'InitializePlayerModel'">
-            <startOffsets>
-              <option value="998" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1025" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Project/Scripts/View/PlayerView.cs</url>
-          <line>20</line>
-          <properties documentPath="C:\Users\Maksim\Vamprites\Assets\_Project\Scripts\View\PlayerView.cs" containingFunctionPresentation="Method 'InitializePlayerViewModel'">
-            <startOffsets>
-              <option value="623" />
-            </startOffsets>
-            <endOffsets>
-              <option value="658" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Project/Scripts/View/PlayerView.cs</url>
-          <line>40</line>
-          <properties documentPath="C:\Users\Maksim\Vamprites\Assets\_Project\Scripts\View\PlayerView.cs" containingFunctionPresentation="Method 'ChangeHealthSlider'">
-            <startOffsets>
-              <option value="1258" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1292" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Project/Scripts/Model/Network/PlayerModel.cs</url>
-          <line>59</line>
-          <properties documentPath="C:\Users\Maksim\Vamprites\Assets\_Project\Scripts\Model\Network\PlayerModel.cs" containingFunctionPresentation="Lambda expression inside Method 'Start'">
-            <startOffsets>
-              <option value="2439" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2512" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="End change enemy attack system and create panel for input code to join" />
+    <option name="LAST_COMMIT_MESSAGE" value="End change enemy attack system and create panel for input code to join" />
   </component>
 </project>

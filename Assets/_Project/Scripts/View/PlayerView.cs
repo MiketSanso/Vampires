@@ -22,33 +22,18 @@ namespace _Project.Scripts.View
             
             _playerViewModel.Health.Subscribe(healthState =>
             {
-                ChangeHealthSlider(healthState);
+                _sliderHealth.value = healthState/100;
             });
             
             _playerViewModel.ExperienceState.Subscribe(experienceState =>
             {
-                ChangeExperienceSlider(experienceState);
+                _sliderExperience.value = experienceState/100;
             });
             
             _playerViewModel.ExperienceLevel.Subscribe(experienceLevel =>
             {
-                ChangeExperienceText(experienceLevel);
+                _textExperience.text = experienceLevel.ToString();
             });
-        }
-        
-        private void ChangeHealthSlider(float healthState)
-        {
-            _sliderHealth.value = healthState;
-        }
-    
-        private void ChangeExperienceSlider(float exeprienceState)
-        {
-            _sliderExperience.value = exeprienceState;
-        }
-        
-        private void ChangeExperienceText(float exeprienceLevel)
-        {
-            _textExperience.text = exeprienceLevel.ToString();
         }
     }
 }

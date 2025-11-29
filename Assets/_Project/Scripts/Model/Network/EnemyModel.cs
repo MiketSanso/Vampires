@@ -1,23 +1,34 @@
 using _Project.Scripts.ScriptableObjects;
 using Fusion;
 using R3;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Model
 {
     public class EnemyModel : NetworkBehaviour
     {
-        public ReadOnlyReactiveProperty<float> Health => _health;
-        public ReadOnlyReactiveProperty<float> Damage => _damage;
-        public ReadOnlyReactiveProperty<float> Speed => _speed;
-        public ReadOnlyReactiveProperty<float> Experience => _experience;
+        public ReactiveCommand<float> ReactiveTakeDamage = new();
+        public ReadOnlyReactiveProperty<float> MaxHealth => _maxHealthRp;
+        public ReadOnlyReactiveProperty<float> Health => _healthRp;
+        public ReadOnlyReactiveProperty<float> Damage => _damageRp;
+        public ReadOnlyReactiveProperty<float> Speed => _speedRp;
         
         private EnemyData _enemyData;
         
-        private readonly ReactiveProperty<float> _experience = new();
-        private readonly ReactiveProperty<float> _health = new();
-        private readonly ReactiveProperty<float> _damage = new();
-        private readonly ReactiveProperty<float> _speed = new();
+        private readonly ReactiveProperty<float> _maxHealthRp = new();
+        private readonly ReactiveProperty<float> _healthRp = new();
+        private readonly ReactiveProperty<float> _damageRp = new();
+        private readonly ReactiveProperty<float> _speedRp = new();
+        
+        [Networked] 
+        private float _maxHealth { get; set; }
+        [Networked] 
+        private float _health { get; set; }
+        [Networked] 
+        private float _damage { get; set; }
+        [Networked] 
+        private float _speed { get; set; }
         
         [Inject]
         private void Construct(EnemyData enemyData)
@@ -27,10 +38,22 @@ namespace _Project.Scripts.Model
 
         private void Start()
         {
-            _health.Value = _enemyData.Health;
-            _damage.Value = _enemyData.Damage;
-            _speed.Value = _enemyData.Speed;
-            _experience.Value = 0;
+            if (Runner.IsServer)
+            {
+                _health = _enemyData.Health;
+                _damage = _enemyData.Damage;
+                _speed = _enemyData.Speed;
+                _maxHealth = _enemyData.MaxHealth;
+    
+                ReactiveTakeDamage.Subscribe(damage =>
+                {
+                    if (Runner.IsServer)
+                    {
+                        _health = Mathf.Clamp(_health - damage, 0, _maxHealth);
+                        _healthRp.Value = _health;
+                    }
+                });
+            }
         }
     }
 }
